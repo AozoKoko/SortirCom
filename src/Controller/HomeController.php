@@ -21,4 +21,5 @@ class HomeController extends AbstractController
         else
             return $this->json('ok');
     }
+
 }
