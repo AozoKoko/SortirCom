@@ -13,7 +13,12 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/main.html.twig');
-        //return $this->json('ok');
+        $em = $this->getDoctrine()->getManager();
+        $em->getConnection()->connect();
+        $connected = $em->getConnection()->isConnected();
+        if($connected)
+            return $this->render('home/main.html.twig');
+        else
+            return $this->json('ok');
     }
 }
