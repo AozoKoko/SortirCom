@@ -19,7 +19,7 @@
             <div class="uk-margin-small">
                 <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
-                    <input class="uk-input uk-border-pill" required placeholder="Username" type="text">
+                    <input class="uk-input uk-border-pill" required  type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
                 </div>
             </div>
             <div class="uk-margin-small">
@@ -27,6 +27,10 @@
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
                     <input class="uk-input uk-border-pill" required placeholder="Password" type="password">
                 </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
             </div>
             <div class="uk-margin-small">
                 <label><input class="uk-checkbox" type="checkbox"> Keep me logged in</label>
