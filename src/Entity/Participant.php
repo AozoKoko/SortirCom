@@ -40,16 +40,6 @@ class Participant
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $mail;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $motPasse;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $administrateur;
@@ -221,7 +211,7 @@ class Participant
                 $organisateur->setOrganisateur(null);
             }
         }
-
         return $this;
     }
+
 }
