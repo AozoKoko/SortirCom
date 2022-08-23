@@ -62,3 +62,5 @@
 ###< symfony/phpunit-bridge ###
 
 .env.local
+
+migrations/
