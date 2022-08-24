@@ -28,4 +28,15 @@ class HomeController extends AbstractController
     {
         return $this->redirectToRoute('app_login');
     }
+
+    /**
+     * @Route("/home", name="app_home")
+     */
+    public function index(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('App\Entity\Sortie')->findAll();
+
+        return $this->render('sortie/index.html.twig', ['listeSortie' => $repo]);
+    }
 }
