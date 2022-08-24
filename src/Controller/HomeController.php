@@ -65,9 +65,18 @@ class HomeController extends AbstractController
         // tableau
         $array = array($sortie, $organisateur);
 
-        //return $this->render('home/index.html.twig');
+        //return $this->render('home/indexed.html.twig');
 
         return new Response("Sortie : " . $sortie . "<br>Organisateur : " . $organisateur);
+    }
+
+    /**
+     * @Route("/index", name="app_index")
+     */
+    public function indexed(): Response
+    {
+
+        return $this->render('home/indexed.html.twig');
     }
 
 
