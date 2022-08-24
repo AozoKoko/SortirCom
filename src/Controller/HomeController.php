@@ -20,7 +20,7 @@ class HomeController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-            return $this->render('home/main.html.twig',['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('home/main.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
@@ -67,5 +67,6 @@ class HomeController extends AbstractController
 
         //return $this->render('home/index.html.twig');
 
-        return new Response("Sortie : ".$sortie . "<br>Organisateur : " .$organisateur);
+        return new Response("Sortie : " . $sortie . "<br>Organisateur : " . $organisateur);
+    }
 }
