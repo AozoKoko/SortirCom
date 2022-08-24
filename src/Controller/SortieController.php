@@ -16,7 +16,7 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('App\Entity\Sortie')->findAll();
 
-        return $this->render('sortie/index.html.twig', ['listeSortie' => $repo]);
+        return $this->render('home/sortie.html.twig', ['listeSortie' => $repo]);
     }
 
     /**
@@ -66,5 +66,23 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/newSortie", name="app_sortie_form")
+     */
+    public function getFormSortie(Request $request): Response
+    {
+        $sortie = new Sortie();
+        $prodForm = $this->createForm(SortieType::class,$sortie);
 
+        $em = $this->getDoctrine()->getManager();
+        $prodForm->handleRequest($request);
+        if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('Good', 'Sortie créé !');
+            return $this->redirectionToRoute('app_home');
+        }
+        return $this->render('sortie/newSortie.html.twig', ['prodForm'=>$prodForm->createView()]);
+    }
+    
 }

@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block main%}
-    {% for item in listeJoueur %}
+    {% for item in listeSortie %}
         <div class="card m-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{item.nom}}</h5>
-                        <p class="card-text">{{ item.organisateur }}</p>
                         <p class="card-text">{{ item.dateHeureDebut }}</p>
                         <p class="card-text">{{ item.duree }}</p>
                         <p class="card-text">{{ item.dateLimiteInscription }}</p>
                         <p class="card-text">{{ item.infosSortie }}</p>
+                        <p class="card-text">{{ item.organisateur }}</p>
+                        <p class="card-text">{{ item.action }}</p>
+                        <p class="card-text">{{ item.etats }}</p>
                         <a href="{{ path('app_supprimer',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
                     </div>
                 </div>
