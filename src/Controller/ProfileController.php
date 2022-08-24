@@ -6,27 +6,45 @@ use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile", name="app_profile")
+     * @Route("/vue_profile/{id}", name="app_vue_profile")
      */
-    public function displayProfile(): Response
+    public function displayProfile($id): Response
     {
-        $profile = new Participant();
-        $profileForm = $this->createForm(ParticipantType::class, $profile);
-        return $this->render('profile/profile.html.twig',[
-            "participant" => $profileForm->CreateView()
-        ]);
+        $repoParticipant = $this->getDoctrine()->getRepository(Participant::class);
+        $participant = $repoParticipant->find($id);
+        return $this->render('profile/profile.html.twig', ["participant"=>$participant]);
     }
 
     /**
-     * @Route("/edit_profile", name="app_profile_edit")
+     * @Route("/edit-profile", name="app_profile_edit")
      */
-    public function editProfile(): Response
+    public function editProfile(Request $request): Response
     {
-        return $this->render('profile/profileEdit.html.twig');
+       $participant = new Participant();
+       $participantForm = $this->createForm(ParticipantType::class, $participant);
+
+       $participantForm->handleRequest($request);
+
+       if($participantForm->isSubmitted() && $participantForm->isValid())
+       {
+           $participantToSave = $participantForm->getData();
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($participantToSave);
+           $em->flush();
+
+           return $this->redirectToRoute('app_vue_profile', [
+               'id' => $participant->getId()
+           ]);
+       }
+
+       return $this->render('profile/profileEdit.html.twig',[
+           "participantForm" => $participantForm->createView()
+       ]);
     }
 }

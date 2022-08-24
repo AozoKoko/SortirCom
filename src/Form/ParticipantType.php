@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Entity\Participant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ParticipantType extends AbstractType
 {
@@ -18,12 +18,17 @@ class ParticipantType extends AbstractType
             ->add('nom')
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'email' => function($user) {
+                'suuu' => function($user) {
                     return $user->getEmail();
                 }
             ])
             ->add('telephone')
-            ->add('campus')
+           /* ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => function($campus) {
+                    return $campus->getNom();
+                }
+            ])*/
 
         ;
     }

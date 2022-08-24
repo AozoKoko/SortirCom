@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @ORM\Table(name="Participant")
  */
 class Participant
 {
@@ -234,6 +235,11 @@ class Participant
         $this->user = $user;
 
         return $this;
+    }
+
+    public function afficherDetailsParticipant(): ?string
+    {
+        return "Pseudo : ".$this->getPseudo().PHP_EOL."Prénom : ".$this->getPrenom().PHP_EOL."Nom : ".$this->getPrenom().PHP_EOL."Téléphone : ".$this->getTelephone();
     }
 
 }
