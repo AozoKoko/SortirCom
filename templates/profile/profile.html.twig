@@ -1,6 +1,16 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block body %}
     <div>
-        {{ form(profileForm) }}
+        {% block title %}<h4><u>Afficher Profil<br/></u></h4>{% endblock %}
+        <h5>Pseudo : {{ participant.getPseudo() }}</h5>
+        <h5>Prénom : {{ participant.getPrenom() }}</h5>
+        <h5>Nom : {{ participant.getNom() }}</h5>
+        <h5>Téléphone : {{ participant.getTelephone() }}</h5>
+        <h5>E-mail : {{ participant.getUser().getEmail() }}</h5>
+        <h5>Campus : {{ participant.getCampus().getNom() }}</h5>
+
+        <button type="button" class="btn btn-primary">Modifier le profil</button>
+        <button type="button" class="btn btn-primary">Retour</button>
+
     </div>
 {% endblock %}
