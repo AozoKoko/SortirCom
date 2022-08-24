@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
+use App\Entity\Sortie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +32,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/home", name="app_home")
+     * @Route("/find", name="app_findall_sorties")
      */
     public function index(): Response
     {
@@ -39,4 +41,31 @@ class HomeController extends AbstractController
 
         return $this->render('sortie/index.html.twig', ['listeSortie' => $repo]);
     }
+
+    /**
+     * @Route("/select-sortie/{id}", name="app_select_sortie")
+     */
+    public function selectSortie($id): Response
+    {
+
+        // Repo Sortie
+        $repoSortie = $this->getDoctrine()->getRepository(Sortie::class); // Récuperer l'entity manager doctrine
+        // Je récupere la sortie correspondante à l'id
+        $sortie = $repoSortie->find($id);
+
+        $organisateurId = $sortie->getOrganisateur();
+
+
+        // Repo Participant
+        $repoParticipant = $this->getDoctrine()->getRepository(Participant::class); // Récuperer l'entity manager doctrine
+        // Je récupere l'organisateur de la sortie
+        $organisateur = $repoParticipant->find($organisateurId->getId());
+
+
+        // tableau
+        $array = array($sortie, $organisateur);
+
+        //return $this->render('home/index.html.twig');
+
+        return new Response("Sortie : ".$sortie . "<br>Organisateur : " .$organisateur);
 }
