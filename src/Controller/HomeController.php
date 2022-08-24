@@ -69,4 +69,6 @@ class HomeController extends AbstractController
 
         return new Response("Sortie : " . $sortie . "<br>Organisateur : " . $organisateur);
     }
+
+
 }
