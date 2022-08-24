@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {{  form_start(prodForm) }}
+    {{  form_widget(prodForm) }}
+    <button class="btn btn-primary">Valider</button>
+    {{  form_end(prodForm) }}
+
+{% endblock %}
