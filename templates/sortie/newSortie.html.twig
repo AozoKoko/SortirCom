@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block main %}
+{% block body %}
+    test
 
-    {{  form_start(prodForm) }}
-    {{  form_widget(prodForm) }}
-    <button class="btn btn-primary">Valider</button>
-    {{  form_end(prodForm) }}
+  {{ form_start(Form) }}
+  {{ form_widget(Form) }}
+    <button type="btn btn-primary">Submit</button>
+  {{ form_end(Form) }}
+
 
 {% endblock %}

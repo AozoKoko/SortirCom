@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Sortie;
+use App\Form\SortieType;
 
 class SortieController extends AbstractController
 {
@@ -17,14 +21,6 @@ class SortieController extends AbstractController
         $repo = $em->getRepository('App\Entity\Sortie')->findAll();
 
         return $this->render('home/sortie.html.twig', ['listeSortie' => $repo]);
-    }
-
-    /**
-     * @Route("/newSortie", name="app_new_sortie")
-     */
-    public function newSortie(): Response
-    {
-        return $this->render('sortie/newSortie.html.twig');
     }
 
     /**
@@ -67,22 +63,28 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/newSortie", name="app_sortie_form")
+     * @Route("/newSortie/", name="app_sortie_form")
      */
     public function getFormSortie(Request $request): Response
     {
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class,$sortie);
 
+
         $em = $this->getDoctrine()->getManager();
         $prodForm->handleRequest($request);
         if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
+            $idOrga = $this->getUser()->getUserIdentifier();
+            $orga = $em->find(Participant::class,$idOrga);
+
+            $sortie->setOrganisateur($orga);
+            var_dump($sortie);
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('Good', 'Sortie créé !');
             return $this->redirectionToRoute('app_home');
         }
-        return $this->render('sortie/newSortie.html.twig', ['prodForm'=>$prodForm->createView()]);
+        return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
     }
-    
+
 }
