@@ -21,4 +21,11 @@ class HomeController extends AbstractController
             return $this->render('home/main.html.twig',['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     * @Route("/", name="app_home")
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->redirectToRoute('app_login');
+    }
 }
