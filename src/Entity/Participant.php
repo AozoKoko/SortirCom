@@ -21,21 +21,25 @@ class Participant
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le nom doit être renseigné")
      * @ORM\Column(type="string", length=30)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Le prénom doit être renseigné")
      * @ORM\Column(type="string", length=20)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message="Le pseudo doit être renseigné")
      * @ORM\Column(type="string", length=50)
      */
     private $pseudo;
 
     /**
+     * @Assert\NotBlank(message="Le numéro de téléphone doit être renseigné")
      * @ORM\Column(type="string", length=10)
      */
     private $telephone;
@@ -235,6 +239,11 @@ class Participant
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return '';
     }
 
     public function afficherDetailsParticipant(): ?string
