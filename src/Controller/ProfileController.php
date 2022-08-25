@@ -26,11 +26,11 @@ class ProfileController extends AbstractController
         $currentUser = $userRepo->findOneBy(['email'=>$email]);
 
         $participantRepo = $em->getRepository(Participant::class);
-        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser]);
+        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser->getId()]);
 
         dump($currentParticipant);
 
-        return $this->render('profile/profile.html.twig');
+        return $this->render('profile/profile.html.twig', ["participant"=>$currentParticipant]);
     }
 
     /**
