@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,7 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('App\Entity\Sortie')->findAll();
 
-        return $this->render('home/sortie.html.twig', ['listeSortie' => $repo]);
+        return $this->render('sortie/sortie.html.twig', ['listeSortie' => $repo]);
     }
 
     /**
@@ -92,25 +93,21 @@ class SortieController extends AbstractController
             $orgaRepo = $em->getRepository(Participant::class);
             $orga = $orgaRepo->findOneBy(['id'=>$currentUser]);
             $campus = $orga->getCampus();
+            $etatRepo = $em->getRepository(Etat::class);
+            $etat = $etatRepo->findOneBy(['id'=>2]);
 
             //Renseigne le champ "Organisateur" de la sortie avec l'utilisateur actuel
             $sortie->setOrganisateur($orga);
             $sortie->setCampus($campus);
+            $sortie->setEtats($etat);
 
             //Debug
             dump($orga);
 
-            //TODO Renseigner le Campus
-            //$camp = $em->find
-            //TODO faire en sorte que le paramètre état soit renseigné comme "ouvert"
-            //$etatRepo = $em->getRepository(Campus::class);
-            //TODO Rajouter un champ dans le form pour le lieu de la sortie
-
-
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('Good', 'Sortie créé !');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_main');
         }
         return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
     }
