@@ -22,7 +22,7 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('App\Entity\Sortie')->findAll();
 
-        return $this->render('home/sortie.html.twig', ['listeSortie' => $repo]);
+        return $this->render('sortie/sortie.html.twig', ['listeSortie' => $repo]);
     }
 
     /**
