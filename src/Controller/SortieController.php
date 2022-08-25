@@ -97,7 +97,7 @@ class SortieController extends AbstractController
             dump($sortie);
 
             //TODO Renseigner le Campus
-            //TODO faire en sorte que le paramètre état soit renseigné comme "crée" ou "ouvert"
+            //TODO faire en sorte que le paramètre état soit renseigné comme "ouvert"
             //TODO Rajouter un champ dans le form pour le lieu de la sortie
 
             $em->persist($sortie);
