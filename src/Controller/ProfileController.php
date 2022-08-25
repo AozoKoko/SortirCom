@@ -13,14 +13,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/vue_profile/", name="app_vue_profile")
+     * @Route("/vue-profile/", name="app_vue_profile")
      */
     public function displayProfile(): Response
     {
-        $id = 'SUUUUUUU';
-        $repoParticipant = $this->getDoctrine()->getRepository(Participant::class);
-        $participant = $repoParticipant->find($id->getId());
-        return $this->render('profile/profile.html.twig', ["participant" => $participant]);
+        $em = $this->getDoctrine()->getManager();
+
+        $userRepo = $em->getRepository(User::class);
+
+        $email = $this->getUser()->getUserIdentifier();
+
+        $currentUser = $userRepo->findOneBy(['email'=>$email]);
+
+        $participantRepo = $em->getRepository(Participant::class);
+        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser]);
+
+        dump($currentParticipant);
+
+        return $this->render('profile/profile.html.twig');
     }
 
     /**
@@ -30,6 +40,17 @@ class ProfileController extends AbstractController
     {
         $participant = new Participant();
         $em = $this->getDoctrine()->getManager();
+
+        $userRepo = $em->getRepository(User::class);
+
+        $email = $this->getUser()->getUserIdentifier();
+
+        $currentUser = $userRepo->findOneBy(['email'=>$email]);
+
+        $participantRepo = $em->getRepository(Participant::class);
+        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser]);
+
+        dump($currentParticipant);
 
         $participantForm = $this->createForm(ParticipantType::class, $participant);
 
