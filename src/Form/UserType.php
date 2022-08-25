@@ -12,12 +12,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email',emailType::class, [
+            ->add('email', emailType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -28,10 +29,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('password', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -43,8 +41,7 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

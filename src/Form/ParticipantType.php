@@ -20,7 +20,7 @@ class ParticipantType extends AbstractType
     {
 
         $builder
-            ->add('pseudo',textType::class, [
+            ->add('pseudo', textType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a username',
@@ -30,7 +30,7 @@ class ParticipantType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('prenom',textType::class, [
+            ->add('prenom', textType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a first name',
@@ -40,7 +40,7 @@ class ParticipantType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('nom',textType::class, [
+            ->add('nom', textType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a name',
@@ -50,7 +50,7 @@ class ParticipantType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('telephone',numberType::class, [
+            ->add('telephone', numberType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a telephone number',
