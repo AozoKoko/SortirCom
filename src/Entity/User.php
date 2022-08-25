@@ -23,6 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message="L'email doit être renseigné")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -33,6 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * @Assert\NotBlank(message="Le mot de passe doit être renseigné")
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
