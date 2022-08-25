@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,11 +75,31 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $prodForm->handleRequest($request);
         if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
-            $idOrga = $this->getUser()->getUserIdentifier();
-            $orga = $em->find(Participant::class,$idOrga);
 
+            //Appelle le repository pour la classe User, me permettant d'utiliser
+            //des méthodes SQL liées à cette classe
+            $userRepo = $em->getRepository(User::class);
+
+            //Je récupère l'email de la session actuelle
+            $idOrga = $this->getUser()->getUserIdentifier();
+
+            //Récupère l'objet [User] correspondant à l'utilisateur
+            //en se servant de son email pour le retrouver dans la base de donnée
+            $currentUser = $userRepo->findOneBy(['email'=> $idOrga]);
+
+            //Utilise l'ID de l'objet [User] pour identifier l'objet [Participant] lié
+            $orga = $em->find(Participant::class, $currentUser);
+
+            //Renseigne le champ "Organisateur" de la sortie avec l'utilisateur actuel
             $sortie->setOrganisateur($orga);
-            var_dump($sortie);
+
+            //Debug
+            dump($sortie);
+
+            //TODO Renseigner le Campus
+            //TODO faire en sorte que le paramètre état soit renseigné comme "crée" ou "ouvert"
+            //TODO Rajouter un champ dans le form pour le lieu de la sortie
+
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('Good', 'Sortie créé !');
