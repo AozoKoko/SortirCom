@@ -16,6 +16,7 @@ class SortieType extends AbstractType
             ->add('dateHeureDebut')
             ->add('duree')
             ->add('dateLimiteInscription')
+            ->add('nbInscriptionsMax')
             ->add('infosSortie')
             ->add('lieu')
         ;

@@ -8,8 +8,12 @@
                     <div class="card-body">
                         <h5 class="card-title">{{item.nom}}</h5>
                         <p class="card-text">{{ item.dateHeureDebut }}</p>
+                        <form class="uk-form">
+                            <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                        </form>
                         <p class="card-text">{{ item.duree }}</p>
                         <p class="card-text">{{ item.dateLimiteInscription }}</p>
+                        <p class="card-text">{{ item.nbInscriptionsMax }}</p>
                         <p class="card-text">{{ item.infosSortie }}</p>
                         <p class="card-text">{{ item.organisateur }}</p>
                         <p class="card-text">{{ item.action }}</p>
