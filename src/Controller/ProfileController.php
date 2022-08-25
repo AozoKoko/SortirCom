@@ -23,14 +23,14 @@ class ProfileController extends AbstractController
 
         $email = $this->getUser()->getUserIdentifier();
 
-        $currentUser = $userRepo->findOneBy(['email'=>$email]);
+        $currentUser = $userRepo->findOneBy(['email' => $email]);
 
         $participantRepo = $em->getRepository(Participant::class);
-        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser->getId()]);
+        $currentParticipant = $participantRepo->findOneBy(['id' => $currentUser->getId()]);
 
         dump($currentParticipant);
 
-        return $this->render('profile/profile.html.twig', ["participant"=>$currentParticipant]);
+        return $this->render('profile/profile.html.twig', ["participant" => $currentParticipant]);
     }
 
     /**
@@ -38,21 +38,20 @@ class ProfileController extends AbstractController
      */
     public function editProfile(Request $request): Response
     {
-        $participant = new Participant();
         $em = $this->getDoctrine()->getManager();
 
         $userRepo = $em->getRepository(User::class);
 
         $email = $this->getUser()->getUserIdentifier();
 
-        $currentUser = $userRepo->findOneBy(['email'=>$email]);
+        $currentUser = $userRepo->findOneBy(['email' => $email]);
 
         $participantRepo = $em->getRepository(Participant::class);
-        $currentParticipant = $participantRepo->findOneBy(['id'=>$currentUser]);
+        $currentParticipant = $participantRepo->findOneBy(['id' => $currentUser]);
 
         dump($currentParticipant);
 
-        $participantForm = $this->createForm(ParticipantType::class, $participant);
+        $participantForm = $this->createForm(ParticipantType::class, $currentParticipant);
 
         $participantForm->handleRequest($request);
 
@@ -64,7 +63,7 @@ class ProfileController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_vue_profile', [
-                'id' => $participant->getId()
+                'id' => $currentParticipant->getId()
             ]);
         }
 
