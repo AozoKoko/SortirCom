@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,17 +89,23 @@ class SortieController extends AbstractController
             $currentUser = $userRepo->findOneBy(['email'=> $idOrga]);
 
             //Utilise l'ID de l'objet [User] pour identifier l'objet [Participant] lié
-            $orga = $em->find(Participant::class, $currentUser);
+            $orgaRepo = $em->getRepository(Participant::class);
+            $orga = $orgaRepo->findOneBy(['id'=>$currentUser]);
+            $campus = $orga->getCampus();
 
             //Renseigne le champ "Organisateur" de la sortie avec l'utilisateur actuel
             $sortie->setOrganisateur($orga);
+            $sortie->setCampus($campus);
 
             //Debug
-            dump($sortie);
+            dump($orga);
 
             //TODO Renseigner le Campus
+            //$camp = $em->find
             //TODO faire en sorte que le paramètre état soit renseigné comme "ouvert"
+            //$etatRepo = $em->getRepository(Campus::class);
             //TODO Rajouter un champ dans le form pour le lieu de la sortie
+
 
             $em->persist($sortie);
             $em->flush();

@@ -18,6 +18,7 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('infosSortie')
             ->add('etats')
+            ->add('lieu')
         ;
     }
 
