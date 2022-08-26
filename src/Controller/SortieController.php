@@ -46,15 +46,36 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/showSortie/{id}", name="app_show_sortie")
+     * @Route("/show-sortie/{id}", name="app_show_sortie")
      */
     public function showSortie($id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $sortie = $em->getRepository('App\Entity\Sortie')->findBy($id);
+        $repo = $em->getRepository(Sortie::class);
+        $repoParticipant = $em->getRepository(Participant::class);
+        $sortie = $repo->findOneBy(['id'=> $id]);
+        $listeParticipants =  $repoParticipant->findAll();
+        $size = count($listeParticipants);
+        $nomOrga = $sortie->getOrganisateur()->getNom();
+        $prenomOrga = $sortie->getOrganisateur()->getPrenom();
+        $inscriptions = $sortie->getNbInscriptionsMax();
+
+        dump($nomOrga);
+
+        for($i = 0; $i < $size; $i++){
+
+            $currentParticipant = $listeParticipants[$i]->getInscrits();
+
+            if($currentParticipant = $id){
+                $inscriptions--;
+            }
+        }
 
         return $this->render('sortie/showSortie.html.twig', [
             "sortie" => $sortie,
+            "getInscriptionsRestantes" => $inscriptions,
+            "nomOrga"=> $nomOrga,
+            "prenomOrga"=> $prenomOrga,
         ]);
     }
 

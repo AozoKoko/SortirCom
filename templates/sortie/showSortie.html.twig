@@ -1,0 +1,21 @@
+{%extends 'base.html.twig' %}
+
+ {% block title %}Afficher Sortie{% endblock %}
+{% block content %}
+    <div>
+        <h4><u>Sortie : {{ sortie.nom }}<br/></u></h4>
+        <h5>Nom : {{ sortie.nom }}</h5>
+        <h5>Date heure du début : {{ sortie.dateHeureDebut |date('d-m-Y') }}</h5>
+        <h5>Nombre d'inscriptions restantes : {{ getInscriptionsRestantes }}</h5>
+        <h5>Durée : {{ sortie.duree }} jours</h5>
+        <h5>Date limite d'inscription : {{ sortie.dateLimiteInscription |date('d-m-Y')}}</h5>
+        <h5>Infos sortie : {{ sortie.infosSortie }}</h5>
+        <h5>Organisateur : {{ nomOrga ~" "~ prenomOrga }}</h5>
+        <h5>Lieu : {{ sortie.lieu }}</h5>
+        <h5>Campus : {{ sortie.campus }}</h5>
+
+        <a href="{{ path('app_modif_sortie',{'id': sortie.id}) }}"><button type="button" class="btn btn-primary">Modifier la sortie</button></a>
+        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
+
+    </div>
+{% endblock %}
