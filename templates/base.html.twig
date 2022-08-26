@@ -71,17 +71,10 @@
 
 
 <!--/CONTENT-->
-<div class="uk-container" style="min-height: 400px">
+<div class="uk-container" >
     {# Flash message #}
-    <div class="content">
-        {% for label, values in app.flashes %}
-            {% for message in values %}
-                <div class="uk-alert-primary" uk-alert>
-                    <a class="uk-alert-close" uk-close></a>
-                    <p>{{ message }}</p>
-                </div>
-            {% endfor %}
-        {% endfor %}
+    <div class="content" id="content">
+        {% block content %}{% endblock %}
     </div>
 
     {% block body %}{% endblock %}

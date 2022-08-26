@@ -21,9 +21,15 @@ class SortieController extends AbstractController
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('App\Entity\Sortie')->findAll();
+        $repoSortie =  $em->getRepository(Sortie::class);
 
-        return $this->render('sortie/sortie.html.twig', ['listeSortie' => $repo]);
+        $listeSortie = $repoSortie->findAll();
+
+
+
+
+        return $this->render('sortie/sortie.html.twig',
+            ['listeSortie' => $listeSortie]);
     }
 
     /**

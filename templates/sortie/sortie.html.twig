@@ -1,27 +1,25 @@
-{% extends '../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block main%}
+
+{% block content %}
+    <div class=uk-child-width-1-2@s uk-grid-match" uk-grid>
+
     {% for item in listeSortie %}
-        <div class="card m-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-8">
-                    <div class="card-body">
+
+                <div>
+                    <div class="uk-card uk-card-default uk-card-hover uk-card-body">
                         <h5 class="card-title">{{item.nom}}</h5>
-                        <p class="card-text">{{ item.dateHeureDebut }}</p>
-                        <form class="uk-form">
-                            <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                        </form>
+                        <p class="card-text">{{ item.dateHeureDebut |date('d-m-Y') }}</p>
                         <p class="card-text">{{ item.duree }}</p>
-                        <p class="card-text">{{ item.dateLimiteInscription }}</p>
+                        <p class="card-text">{{ item.dateLimiteInscription |date('d-m-Y') }}</p>
                         <p class="card-text">{{ item.nbInscriptionsMax }}</p>
                         <p class="card-text">{{ item.infosSortie }}</p>
                         <p class="card-text">{{ item.organisateur }}</p>
-                        <p class="card-text">{{ item.action }}</p>
                         <p class="card-text">{{ item.lieu }}</p>
-                        <a href="{{ path('app_supprimer',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
+                        <a href="{{ path('app_suppr_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
                     </div>
                 </div>
-            </div>
-        </div>
+
     {% endfor %}
+    </div>
 {% endblock %}
