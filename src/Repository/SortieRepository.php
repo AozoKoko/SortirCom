@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<Sortie>
  *
@@ -37,6 +38,15 @@ class SortieRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+
+    public function searchByCampus($value): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.campus = :campus')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

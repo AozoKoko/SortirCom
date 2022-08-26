@@ -25,9 +25,6 @@ class SortieController extends AbstractController
 
         $listeSortie = $repoSortie->findAll();
 
-
-
-
         return $this->render('sortie/sortie.html.twig',
             ['listeSortie' => $listeSortie]);
     }
@@ -66,7 +63,7 @@ class SortieController extends AbstractController
 
             $currentParticipant = $listeParticipants[$i]->getInscrits();
 
-            if($currentParticipant = $id){
+            if($currentParticipant == $id){
                 $inscriptions--;
             }
         }
