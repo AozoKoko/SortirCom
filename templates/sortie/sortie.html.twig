@@ -16,6 +16,7 @@
                         <p class="card-text">{{ item.infosSortie }}</p>
                         <p class="card-text">{{ item.organisateur }}</p>
                         <p class="card-text">{{ item.lieu }}</p>
+                        <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
                         <a href="{{ path('app_suppr_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
                     </div>
                 </div>

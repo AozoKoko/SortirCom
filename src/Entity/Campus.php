@@ -116,4 +116,11 @@ class Campus
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $noms = $this->getNom();
+        return $noms;
+    }
+
 }

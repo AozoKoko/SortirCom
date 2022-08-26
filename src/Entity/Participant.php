@@ -253,4 +253,6 @@ class Participant
         return "Pseudo : ".$this->getPseudo().PHP_EOL."Prénom : ".$this->getPrenom().PHP_EOL."Nom : ".$this->getPrenom().PHP_EOL."Téléphone : ".$this->getTelephone();
     }
 
+
+
 }
