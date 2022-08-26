@@ -135,7 +135,7 @@ class SortieController extends AbstractController
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('Good', 'Sortie créé !');
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('app_sortie');
         }
         return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
     }
@@ -156,5 +156,6 @@ class SortieController extends AbstractController
         return $this->render('sortie/sortie.html.twig',
             ['listeSortie' => $listeSortie]);
     }
+
 
 }
