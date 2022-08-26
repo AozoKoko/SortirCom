@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
- {% block title %}Afficher Profil{% endblock %}
+ {% block title %} participant.getPseudo(){% endblock %}
 {% block content %}
     <div>
-        <h4><u>Afficher Profil<br/></u></h4>
+        <h4><u>{{ participant.getPseudo() }}<br/></u></h4>
         <h5>Pseudo : {{ participant.getPseudo() }}</h5>
         <h5>Prénom : {{ participant.getPrenom() }}</h5>
         <h5>Nom : {{ participant.getNom() }}</h5>
@@ -10,8 +10,7 @@
         <h5>E-mail : {{ participant.getUser().getEmail() }}</h5>
         <h5>Campus : {{ participant.getCampus().getNom() }}</h5>
 
-        <a href="{{ path('app_profile_edit') }}"><button type="button" class="btn btn-primary">Modifier le profil</button></a>
-       <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
+        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
 
     </div>
 {% endblock %}
