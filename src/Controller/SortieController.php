@@ -72,7 +72,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/newSortie/", name="app_sortie_form")
+     * @Route("/new-sortie/", name="app_sortie_form")
      */
     public function getFormSortie(Request $request): Response
     {
