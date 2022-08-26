@@ -30,19 +30,6 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/modifSortie/{id}", name="app_modif_sortie")
-     */
-    public function modifSortie($id): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $sortie = $em->getRepository('App\Entity\Sortie')->findBy($id);
-
-        return $this->render('sortie/modifSortie.html.twig', [
-            "sortie" => $sortie,
-        ]);
-    }
-
-    /**
      * @Route("/show-sortie/{id}", name="app_show_sortie")
      */
     public function showSortie($id): Response
@@ -124,10 +111,12 @@ class SortieController extends AbstractController
             $etatRepo = $em->getRepository(Etat::class);
             $etat = $etatRepo->findOneBy(['id'=>2]);
 
+
             //Renseigne le champ "Organisateur" de la sortie avec l'utilisateur actuel
             $sortie->setOrganisateur($orga);
             $sortie->setCampus($campus);
             $sortie->setEtats($etat);
+        
 
             //Debug
             dump($orga);
@@ -157,5 +146,34 @@ class SortieController extends AbstractController
             ['listeSortie' => $listeSortie]);
     }
 
+    /**
+     * @Route("/modifSortie/{id}", name="app_modif_sortie")
+     */
+    public function getFormSortieModify(Request $request, $id): Response
+    {
+        $sortie = new Sortie();
+
+        $prodForm = $this->createForm(SortieType::class,$sortie);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $prodForm->handleRequest($request);
+        if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
+
+            //Appelle le repository pour la classe User, me permettant d'utiliser
+            //des méthodes SQL liées à cette classe
+            $userRepo = $em->getRepository(Participant::class);
+
+
+
+
+
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('Good', 'Sortie créé !');
+            return $this->redirectToRoute('app_main');
+        }
+        return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
+    }
 
 }

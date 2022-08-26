@@ -70,6 +70,7 @@ class ParticipantType extends AbstractType
             ->add('submit', SubmitType::class);
     }
 
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

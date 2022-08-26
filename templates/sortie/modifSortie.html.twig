@@ -1,1 +1,14 @@
 {% extends 'base.html.twig' %}
+
+{%extends 'base.html.twig' %}
+
+ {% block title %}Afficher Sortie{% endblock %}
+{% block content %}
+    <div>
+        {{ form_start(Form) }}
+        {{ form_widget(Form) }}
+        <button type="btn btn-primary">Modifier</button>
+        {{ form_end(Form) }}
+
+    </div>
+{% endblock %}
