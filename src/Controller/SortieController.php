@@ -80,16 +80,18 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/supprSortie/{id}", name="app_suppr_sortie")
+     * @Route("/delete-sortie/{id}", name="app_delete_sortie")
      */
-    public function supprSortie($id): Response
+    public function deleteSortie($id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $sortie = $em->getRepository('App\Entity\Sortie')->findBy($id);
 
-        return $this->render('sortie/supprSortie.html.twig', [
-            "sortie" => $sortie,
-        ]);
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        dump($sortie);
+        $em->remove($sortie);
+        $em->flush();
+
+        return $this->redirectToRoute('app_sortie');
     }
 
     /**
