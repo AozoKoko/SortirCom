@@ -63,6 +63,8 @@ class SortieController extends AbstractController
      */
     public function deleteSortie($id): Response
     {
+        //TODO: security check
+        //ajouter une sécurité : il faut que ce soit uniquement le créateur qui puisse supprimer la sortie
         $em = $this->getDoctrine()->getManager();
 
         $sortie = $em->getRepository(Sortie::class)->find($id);
@@ -118,6 +120,23 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_main');
         }
         return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
+    }
+
+    /**
+     * @Route("/sortie", name="app_sortie")
+     */
+    public function annulée(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoSortie =  $em->getRepository(Sortie::class);
+
+        $listeSortie = $repoSortie->findAll();
+
+
+
+
+        return $this->render('sortie/sortie.html.twig',
+            ['listeSortie' => $listeSortie]);
     }
 
 }
