@@ -34,7 +34,6 @@ class SortieController extends AbstractController
         $sortieForm=$this->createForm(triSortieType::class);
 
         return $this->render('sortie/sortie.html.twig',[
-            "sortieForm"=>$sortieForm->CreateView(),
             'listeSortie' => $listeSortie,
             'listeCampus'=> $listeCampus
             ]);
@@ -218,11 +217,12 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
         $participantRepo = $em->getRepository(Participant::class);
+        $currentDate = new \DateTime('now');
 
         $participant = $participantRepo->findOneBy(['id' =>$idParticipant]);
         $sortie =  $sortieRepo->findOneBy(['id' => $id]);
 
-        if($sortie->getEtats()->getId() == 2){
+        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() < $currentDate){
             $sortie->addParticipant($participant);
 
             $em->persist($sortie);
