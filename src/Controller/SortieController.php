@@ -7,6 +7,7 @@ use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\User;
 use App\Form\CampusType;
+use App\Form\TriSortieType;
 use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,13 +26,12 @@ class SortieController extends AbstractController
         SortieRepository $repoSortie, CampusRepository $repoCampus
     ): Response
     {
-
         $listeCampus = $repoCampus->findAll();
         $listeSortie = $repoSortie->findAll();
 
         dump($listeCampus);
 
-        $sortieForm=$this->createForm(SortieType::class);
+        $sortieForm=$this->createForm(triSortieType::class);
 
         return $this->render('sortie/sortie.html.twig',[
             "sortieForm"=>$sortieForm->CreateView(),
@@ -171,13 +171,17 @@ class SortieController extends AbstractController
 
         $repoSortie =  $em->getRepository(Sortie::class);
         $listeSortie = $repoSortie->searchByCampus($id);
-        dump($listeSortie);
+
 
         $repoCampus = $em->getRepository(Campus::class);
         $listeCampus = $repoCampus->findAll();
+        $sortieForm=$this->createForm(triSortieType::class);
 
-        return $this->render('sortie/recherche-sortie.html.twig',[
-            'listeSortie' => $listeSortie,
+        dump($listeSortie);
+        return $this->redirectToRoute('sortie/recherche-sortie.html.twig',[
+
+            'sortieForm'=>$sortieForm->CreateView(),
+            'listeSortie' => $listeSortie->getId(),
             'listeCampus'=> $listeCampus
         ]);
     }

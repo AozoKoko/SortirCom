@@ -18,7 +18,7 @@ class TriSortieType extends AbstractType
             ->add('listeCampus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => function($campus) {
-                    return $campus->getName();
+                    return $campus->getNom();
                 }
             ])
             ->add('submit', SubmitType::class)
