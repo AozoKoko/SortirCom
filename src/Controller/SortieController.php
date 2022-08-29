@@ -183,19 +183,14 @@ class SortieController extends AbstractController
     public function getFormSortieModify(Request $request, $id): Response
     {
         $sortie = new Sortie();
-
         $prodForm = $this->createForm(SortieType::class,$sortie);
-
 
         $em = $this->getDoctrine()->getManager();
         $prodForm->handleRequest($request);
         if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
-
             //Appelle le repository pour la classe User, me permettant d'utiliser
             //des méthodes SQL liées à cette classe
             $userRepo = $em->getRepository(Participant::class);
-
-
 
             $em->persist($sortie);
             $em->flush();
@@ -204,5 +199,6 @@ class SortieController extends AbstractController
         }
         return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
     }
+
 
 }
