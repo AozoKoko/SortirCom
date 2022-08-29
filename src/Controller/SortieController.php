@@ -75,7 +75,7 @@ class SortieController extends AbstractController
             "getInscriptionsRestantes" => $inscriptions,
             "nomOrga"=> $nomOrga,
             "prenomOrga"=> $prenomOrga,
-            "userID"=>$userID,
+            "userID"=> $userID,
             "listeParticipant"=>$listeParticipant,
 
         ]);
@@ -225,7 +225,7 @@ class SortieController extends AbstractController
         $participant = $participantRepo->findOneBy(['id' =>$idParticipant]);
         $sortie =  $sortieRepo->findOneBy(['id' => $id]);
 
-        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() < $currentDate){
+        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() > $currentDate){
             $sortie->addParticipant($participant);
 
             $em->persist($sortie);
@@ -241,7 +241,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/desister/{id}/{idParticipant}", name="app_inscription_sortie")
+     * @Route("/desister/{id}/{idParticipant}", name="app_desister_sortie")
      */
     public function desisterSortie($id, $idParticipant): Response
     {
