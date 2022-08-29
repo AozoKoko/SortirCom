@@ -49,25 +49,20 @@ class SortieController extends AbstractController
         $repoParticipant = $em->getRepository(Participant::class);
         $repoUser = $em->getRepository(User::class);
         $sortie = $repo->findOneBy(['id'=> $id]);
-        $listeParticipants =  $repoParticipant->findAll();
-        $size = count($listeParticipants);
+        $size = count($sortie->getParticipants());
         $nomOrga = $sortie->getOrganisateur()->getNom();
         $prenomOrga = $sortie->getOrganisateur()->getPrenom();
-        $inscriptions = $sortie->getNbInscriptionsMax();
+        $inscriptions = $sortie->getNbInscriptionsMax() - 1;
         $userEmail = $this->getUser()->getUserIdentifier();
         $user = $repoUser->findOneBy(['email' => $userEmail]);
         $userID = $user->getId();
 
-        dump($nomOrga);
 
         for($i = 0; $i < $size; $i++){
 
-            $currentParticipant = $listeParticipants[$i]->getInscrits();
-
-            if($currentParticipant == $id){
                 $inscriptions--;
-            }
         }
+
 
         return $this->render('sortie/showSortie.html.twig', [
             "sortie" => $sortie,
@@ -224,6 +219,35 @@ class SortieController extends AbstractController
 
         if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() < $currentDate){
             $sortie->addParticipant($participant);
+
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('app_sortie');
+        }
+
+
+
+        $this->addFlash("message_fail", sprintf("Problème dans l'inscription"));
+        return $this->redirectToRoute('app_sortie');
+    }
+
+    /**
+     * @Route("/desister/{id}/{idParticipant}", name="app_inscription_sortie")
+     */
+    public function desisterSortie($id, $idParticipant): Response
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $sortieRepo = $em->getRepository(Sortie::class);
+        $participantRepo = $em->getRepository(Participant::class);
+        $currentDate = new \DateTime('now');
+
+        $participant = $participantRepo->findOneBy(['id' =>$idParticipant]);
+        $sortie =  $sortieRepo->findOneBy(['id' => $id]);
+
+        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() < $currentDate){
+            $sortie->removeParticipant($participant);
 
             $em->persist($sortie);
             $em->flush();
