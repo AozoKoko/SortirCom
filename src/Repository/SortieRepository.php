@@ -40,16 +40,24 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-
     public function searchByCampus($idCampus): array
     {
-
         return $this->createQueryBuilder('s')
             ->andWhere('s.$campus = :campus')
             ->setParameter('campus', $idCampus)
             ->getQuery()
             ->getResult();
     }
+
+    public function cancel(Sortie $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->refresh($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

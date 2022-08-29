@@ -62,13 +62,9 @@ class SortieController extends AbstractController
         $user = $repoUser->findOneBy(['email' => $userEmail]);
         $userID = $user->getId();
 
-
-
         for($i = 0; $i < $size; $i++){
-
                 $inscriptions--;
         }
-
 
         return $this->render('sortie/showSortie.html.twig', [
             "sortie" => $sortie,
@@ -77,7 +73,6 @@ class SortieController extends AbstractController
             "prenomOrga"=> $prenomOrga,
             "userID"=> $userID,
             "listeParticipant"=>$listeParticipant,
-
         ]);
     }
 
@@ -105,7 +100,6 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class,$sortie);
-
 
         $em = $this->getDoctrine()->getManager();
         $prodForm->handleRequest($request);
@@ -157,9 +151,6 @@ class SortieController extends AbstractController
 
         $listeSortie = $repoSortie->findAll();
 
-
-
-
         return $this->render('sortie/sortie.html.twig',
             ['listeSortie' => $listeSortie]);
     }
@@ -173,7 +164,6 @@ class SortieController extends AbstractController
 
         $repoSortie =  $em->getRepository(Sortie::class);
         $listeSortie = $repoSortie->searchByCampus($id);
-
 
         $repoCampus = $em->getRepository(Campus::class);
         $listeCampus = $repoCampus->findAll();
@@ -216,7 +206,6 @@ class SortieController extends AbstractController
      */
     public function inscriptionSortie($id, $idParticipant): Response
     {
-
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
         $participantRepo = $em->getRepository(Participant::class);
@@ -234,8 +223,6 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_sortie');
         }
 
-
-
         $this->addFlash("message_fail", sprintf("Problème dans l'inscription"));
         return $this->redirectToRoute('app_sortie');
     }
@@ -245,7 +232,6 @@ class SortieController extends AbstractController
      */
     public function desisterSortie($id, $idParticipant): Response
     {
-
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
         $participantRepo = $em->getRepository(Participant::class);
@@ -262,8 +248,6 @@ class SortieController extends AbstractController
 
             return $this->redirectToRoute('app_sortie');
         }
-
-
 
         $this->addFlash("message_fail", sprintf("Problème dans l'inscription"));
         return $this->redirectToRoute('app_sortie');
