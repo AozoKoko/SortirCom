@@ -23,20 +23,13 @@
                 <button type="button" class="btn btn-primary">S'incrire</button>
             </a>
         {% endif %}
-        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
-
+        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button><br><br>
     </div>
-
     <div>
         {% for participant in listeParticipant %}
-            <p>
-                {{ participant.nom }}
-            </p>
-            <p>
-                {{ participant.prenom }}
-            </p>
-        <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher profil du
-            participant</a>
+            <div class="space">
+                    {{ participant.nom }}, {{ participant.prenom }}  <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher</a>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
