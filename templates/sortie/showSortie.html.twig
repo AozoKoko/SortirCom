@@ -26,19 +26,7 @@
         <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
 
     </div>
-
-    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
-    {% for item in listeParticipant %}
-        <div>
-            <div class="uk-card uk-card-default uk-card-hove    r uk-card-body">
-                <p class="card-text">{{ item.nom }}</p>
-                <p class="card-text">{{ item.prenom }}</p>
-                <a href="{{ path('app_delete_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
-                <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
-            </div>
-        </div>
-    {% endfor %}
-    </div>
+    
     <div>
         {% for participant in listeParticipant %}
             <p>
@@ -47,7 +35,7 @@
             <p>
                 {{ participant.prenom }}
             </p>
-        <a href="{{ path('app_show_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher profil du
+        <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher profil du
             participant</a>
         {% endfor %}
     </div>
