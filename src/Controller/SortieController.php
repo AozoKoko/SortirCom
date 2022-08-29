@@ -48,12 +48,16 @@ class SortieController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Sortie::class);
         $repoParticipant = $em->getRepository(Participant::class);
+        $repoUser = $em->getRepository(User::class);
         $sortie = $repo->findOneBy(['id'=> $id]);
         $listeParticipants =  $repoParticipant->findAll();
         $size = count($listeParticipants);
         $nomOrga = $sortie->getOrganisateur()->getNom();
         $prenomOrga = $sortie->getOrganisateur()->getPrenom();
         $inscriptions = $sortie->getNbInscriptionsMax();
+        $userEmail = $this->getUser()->getUserIdentifier();
+        $user = $repoUser->findOneBy(['email' => $userEmail]);
+        $userID = $user->getId();
 
         dump($nomOrga);
 
@@ -71,6 +75,7 @@ class SortieController extends AbstractController
             "getInscriptionsRestantes" => $inscriptions,
             "nomOrga"=> $nomOrga,
             "prenomOrga"=> $prenomOrga,
+            "userID"=>$userID,
         ]);
     }
 
@@ -200,5 +205,31 @@ class SortieController extends AbstractController
         return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
     }
 
+    /**
+     * @Route("/inscription/{id}/{idParticipant}", name="app_inscription_sortie")
+     */
+    public function inscriptionSortie($id, $idParticipant): Response
+    {
 
+        $em = $this->getDoctrine()->getManager();
+        $sortieRepo = $em->getRepository(Sortie::class);
+        $participantRepo = $em->getRepository(Participant::class);
+
+        $participant = $participantRepo->findOneBy(['id' =>$idParticipant]);
+        $sortie =  $sortieRepo->findOneBy(['id' => $id]);
+
+        if($sortie->getEtats()->getId() == 2){
+            $sortie->addParticipant($participant);
+
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('app_sortie');
+        }
+
+
+
+        $this->addFlash("message_fail", sprintf("Problème dans l'inscription"));
+        return $this->redirectToRoute('app_sortie');
+    }
 }
