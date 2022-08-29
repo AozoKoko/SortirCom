@@ -41,10 +41,12 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function searchByCampus($value): array
+    public function searchByCampus($id): array
     {
+
         return $this->createQueryBuilder('s')
-            ->andWhere('s.campus = :campus')
+            ->andWhere('s.campus_id = :campus')
+            ->setParameter('campus', $id)
             ->getQuery()
             ->getResult();
     }

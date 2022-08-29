@@ -6,6 +6,9 @@ use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\User;
+use App\Form\CampusType;
+use App\Repository\CampusRepository;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +21,23 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie", name="app_sortie")
      */
-    public function index(): Response
+    public function index(
+        SortieRepository $repoSortie, CampusRepository $repoCampus
+    ): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $repoSortie =  $em->getRepository(Sortie::class);
 
+        $listeCampus = $repoCampus->findAll();
         $listeSortie = $repoSortie->findAll();
 
-        return $this->render('sortie/sortie.html.twig',
-            ['listeSortie' => $listeSortie]);
+        dump($listeCampus);
+
+        $sortieForm=$this->createForm(SortieType::class);
+
+        return $this->render('sortie/sortie.html.twig',[
+            "sortieForm"=>$sortieForm->CreateView(),
+            'listeSortie' => $listeSortie,
+            'listeCampus'=> $listeCampus
+            ]);
     }
 
     /**
@@ -130,9 +141,9 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie", name="app_sortie")
+     * @Route("/sortie-annulee", name="app_annulee")
      */
-    public function annulée(): Response
+    public function annulee(): Response
     {
         $em = $this->getDoctrine()->getManager();
         $repoSortie =  $em->getRepository(Sortie::class);
@@ -144,6 +155,26 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/sortie.html.twig',
             ['listeSortie' => $listeSortie]);
+    }
+
+    /**
+     * @Route("/recherche-sortie/{id}", name="app_recherche_sortie")
+     */
+    public function rechercheSortie($id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $repoSortie =  $em->getRepository(Sortie::class);
+        $listeSortie = $repoSortie->searchByCampus($id);
+        dump($listeSortie);
+
+        $repoCampus = $em->getRepository(Campus::class);
+        $listeCampus = $repoCampus->findAll();
+
+        return $this->render('sortie/recherche-sortie.html.twig',[
+            'listeSortie' => $listeSortie,
+            'listeCampus'=> $listeCampus
+        ]);
     }
 
     /**
@@ -163,8 +194,6 @@ class SortieController extends AbstractController
             //Appelle le repository pour la classe User, me permettant d'utiliser
             //des méthodes SQL liées à cette classe
             $userRepo = $em->getRepository(Participant::class);
-
-
 
 
 
