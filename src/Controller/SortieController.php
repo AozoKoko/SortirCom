@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\CampusType;
 use App\Form\TriSortieType;
 use App\Repository\CampusRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,19 +24,22 @@ class SortieController extends AbstractController
      * @Route("/sortie", name="app_sortie")
      */
     public function index(
-        SortieRepository $repoSortie, CampusRepository $repoCampus
+        SortieRepository $repoSortie, CampusRepository $repoCampus, ParticipantRepository $repoParticipant
     ): Response
     {
         $listeCampus = $repoCampus->findAll();
         $listeSortie = $repoSortie->findAll();
+        $listeParticipant = $repoParticipant->findAll();
 
         dump($listeCampus);
 
         $sortieForm=$this->createForm(triSortieType::class);
 
         return $this->render('sortie/sortie.html.twig',[
+            "sortieForm"=>$sortieForm->CreateView(),
             'listeSortie' => $listeSortie,
-            'listeCampus'=> $listeCampus
+            'listeCampus'=> $listeCampus,
+            'listeParticipant'=> $listeParticipant,
             ]);
     }
 
@@ -49,13 +53,15 @@ class SortieController extends AbstractController
         $repoParticipant = $em->getRepository(Participant::class);
         $repoUser = $em->getRepository(User::class);
         $sortie = $repo->findOneBy(['id'=> $id]);
-        $size = count($sortie->getParticipants());
+        $listeParticipant = $sortie->getParticipants();
+        $size = count($listeParticipant);
         $nomOrga = $sortie->getOrganisateur()->getNom();
         $prenomOrga = $sortie->getOrganisateur()->getPrenom();
         $inscriptions = $sortie->getNbInscriptionsMax() - 1;
         $userEmail = $this->getUser()->getUserIdentifier();
         $user = $repoUser->findOneBy(['email' => $userEmail]);
         $userID = $user->getId();
+
 
 
         for($i = 0; $i < $size; $i++){
@@ -70,6 +76,8 @@ class SortieController extends AbstractController
             "nomOrga"=> $nomOrga,
             "prenomOrga"=> $prenomOrga,
             "userID"=>$userID,
+            "listeParticipant"=>$listeParticipant,
+
         ]);
     }
 

@@ -39,6 +39,15 @@ class ParticipantRepository extends ServiceEntityRepository
         }
     }
 
+    public function viewParticpant ($idParticipant): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.$id = :participant')
+            ->setParameter('participant', $idParticipant)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Participant[] Returns an array of Participant objects
 //     */

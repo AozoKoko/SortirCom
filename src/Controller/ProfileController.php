@@ -103,4 +103,6 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/otherUserProfile.html.twig', ["participant" => $chosenParticipant]);
     }
+
+
 }

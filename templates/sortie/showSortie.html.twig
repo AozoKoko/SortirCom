@@ -1,4 +1,4 @@
-{%extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
  {% block title %}Afficher Sortie{% endblock %}
 {% block content %}
@@ -8,18 +8,47 @@
         <h5>Date heure du début : {{ sortie.dateHeureDebut |date('d-m-Y') }}</h5>
         <h5>Nombre d'inscriptions restantes : {{ getInscriptionsRestantes }}</h5>
         <h5>Durée : {{ sortie.duree }} jours</h5>
-        <h5>Date limite d'inscription : {{ sortie.dateLimiteInscription |date('d-m-Y')}}</h5>
+        <h5>Date limite d'inscription : {{ sortie.dateLimiteInscription |date('d-m-Y') }}</h5>
         <h5>Infos sortie : {{ sortie.infosSortie }}</h5>
         <h5>Organisateur : {{ nomOrga ~" "~ prenomOrga }}</h5>
         <h5>Lieu : {{ sortie.lieu }}</h5>
         <h5>Campus : {{ sortie.campus }}</h5>
 
         {% if sortie.organisateur.id == userID %}
-        <a href="{{ path('app_modif_sortie',{'id': sortie.id}) }}"><button type="button" class="btn btn-primary">Modifier la sortie</button></a>
+            <a href="{{ path('app_modif_sortie',{'id': sortie.id}) }}">
+                <button type="button" class="btn btn-primary">Modifier la sortie</button>
+            </a>
         {% else %}
-            <a href="{{ path('app_inscription_sortie',{'id': sortie.id , 'idParticipant': userID}) }}"><button type="button" class="btn btn-primary">S'incrire</button></a>
+            <a href="{{ path('app_inscription_sortie',{'id': sortie.id , 'idParticipant': userID}) }}">
+                <button type="button" class="btn btn-primary">S'incrire</button>
+            </a>
         {% endif %}
         <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
 
+    </div>
+
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+    {% for item in listeParticipant %}
+        <div>
+            <div class="uk-card uk-card-default uk-card-hove    r uk-card-body">
+                <p class="card-text">{{ item.nom }}</p>
+                <p class="card-text">{{ item.prenom }}</p>
+                <a href="{{ path('app_delete_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
+                <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <div>
+        {% for participant in listeParticipant %}
+            <p>
+                {{ participant.nom }}
+            </p>
+            <p>
+                {{ participant.prenom }}
+            </p>
+        <a href="{{ path('app_show_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher profil du
+            participant</a>
+        {% endfor %}
     </div>
 {% endblock %}
