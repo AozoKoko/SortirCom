@@ -11,6 +11,7 @@ use App\Form\TriSortieType;
 use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use PhpParser\Node\Expr\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class SortieController extends AbstractController
 {
     /**
      * @Route("/sortie", name="app_sortie")
+     * @throws \Exception
      */
     public function index(
         Request $request,
@@ -29,10 +31,22 @@ class SortieController extends AbstractController
     ): Response
     {
         //on récupère toutes les sorties
-        $listeSortie = $repoSortie->findAll();
+        $listeSortieUnfiltered = $repoSortie->findAll();
         //on récupère tous les participants
         $listeParticipant = $repoParticipant->findAll();
 
+        $listeSortie = array();
+
+        $now = new \DateTime("now");
+        ;
+
+        $length = count($listeSortieUnfiltered);
+
+        for ($i = 0; $i < $length ; $i++){
+            if( !($listeSortieUnfiltered[$i]->getDateHeureDebut()->modify('+1 month') <  $now)){
+               array_push($listeSortie, $listeSortieUnfiltered[$i]);
+            }
+        }
 
         //on créé un formulaire qui va afficher les campusdans le select
         $sortieForm=$this->createForm(triSortieType::class);
