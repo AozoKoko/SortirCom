@@ -19,8 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 
+
 class SortieController extends AbstractController
 {
+
+    public function archivageSortie($listeSortieUnfiltered): array {
+        $listeSortie = array();
+
+        $now = new \DateTime("now");
+
+        $length = count($listeSortieUnfiltered);
+
+        for ($i = 0; $i < $length ; $i++) {
+            if (!($listeSortieUnfiltered[$i]->getDateHeureDebut()->modify('+1 month') < $now)) {
+                array_push($listeSortie, $listeSortieUnfiltered[$i]);
+            }
+        }
+        return $listeSortie;
+    }
     /**
      * @Route("/sortie", name="app_sortie")
      * @throws \Exception
@@ -30,25 +46,13 @@ class SortieController extends AbstractController
         SortieRepository $repoSortie, ParticipantRepository $repoParticipant
     ): Response
     {
-        //on récupère toutes les sorties
         $listeSortieUnfiltered = $repoSortie->findAll();
         //on récupère tous les participants
         $listeParticipant = $repoParticipant->findAll();
 
-        $listeSortie = array();
+        $listeSortie = $this->archivageSortie($listeSortieUnfiltered);
 
-        $now = new \DateTime("now");
-        ;
-
-        $length = count($listeSortieUnfiltered);
-
-        for ($i = 0; $i < $length ; $i++){
-            if( !($listeSortieUnfiltered[$i]->getDateHeureDebut()->modify('+1 month') <  $now)){
-               array_push($listeSortie, $listeSortieUnfiltered[$i]);
-            }
-        }
-
-        //on créé un formulaire qui va afficher les campusdans le select
+        //on créé un formulaire qui va afficher les campus dans le select
         $sortieForm=$this->createForm(triSortieType::class);
         $sortieForm->handleRequest($request);
 
@@ -57,13 +61,12 @@ class SortieController extends AbstractController
             //on récupère les paramètres rentrés
             $resultat = $request->get("tri_sortie");
             //on effectue une recherche par le campus selectionné
-            if($resultat["listeCampus"] == '')
-                $listeSortie = $repoSortie->findAll();
+            if($resultat["Campus"] == '')
+                $listeSortie;
             else
-                $listeSortie = $repoSortie->searchByCampus($resultat["listeCampus"]);
+                $listeSortie = $repoSortie->searchByCampus($resultat["Campus"]);
 
-
-
+            $listeSortie = $this->archivageSortie($listeSortie);
 
 
             return $this->render('sortie/sortie.html.twig', [
