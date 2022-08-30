@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\User;
 use App\Form\ParticipantType;
+use App\Repository\ParticipantRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,18 +18,16 @@ class ProfileController extends AbstractController
     /**
      * @Route("/vue-profile/", name="app_vue_profile")
      */
-    public function displayProfile(): Response
+    public function displayProfile(
+        UserRepository $userRepository,
+        ParticipantRepository $participantsRepository
+    ): Response
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $userRepo = $em->getRepository(User::class);
-
         $email = $this->getUser()->getUserIdentifier();
 
-        $currentUser = $userRepo->findOneBy(['email' => $email]);
+        $currentUser = $userRepository->findOneBy(['email' => $email]);
 
-        $participantRepo = $em->getRepository(Participant::class);
-        $currentParticipant = $participantRepo->findOneBy(['id' => $currentUser->getId()]);
+        $currentParticipant = $participantsRepository->findOneBy(['id' => $currentUser->getId()]);
 
         dump($currentParticipant);
 
@@ -87,7 +87,10 @@ class ProfileController extends AbstractController
     /**
      * @Route("/vue-other-profile/{id}", name="app_vue_other_profile")
      */
-    public function displayOtherUserProfile($id): Response
+    public function displayOtherUserProfile(
+        $id,
+        UserRepository $repository
+    ): Response
     {
         $em = $this->getDoctrine()->getManager();
 

@@ -24,22 +24,39 @@ class SortieController extends AbstractController
      * @Route("/sortie", name="app_sortie")
      */
     public function index(
+        Request $request,
         SortieRepository $repoSortie, CampusRepository $repoCampus, ParticipantRepository $repoParticipant
     ): Response
     {
-        $listeCampus = $repoCampus->findAll();
+        //on récupère toutes les sorties
         $listeSortie = $repoSortie->findAll();
+        //on récupère tous les participants
         $listeParticipant = $repoParticipant->findAll();
 
-        dump($listeCampus);
-
+        //on créé un formulaire qui va afficher les campusdans le select
         $sortieForm=$this->createForm(triSortieType::class);
+        $sortieForm->handleRequest($request);
 
-        return $this->render('sortie/sortie.html.twig',[
-            "sortieForm"=>$sortieForm->CreateView(),
+        //si le formulaire a été validé
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+            //on récupère les paramètres rentrés
+            $resultat = $request->get("tri_sortie"); $resultat = $resultat["listeCampus"];
+            //on effectue une recherche par le campus selectionné
+            $listeSortie = $repoSortie->searchByCampus($resultat);
+
+            
+            return $this->render('sortie/sortie.html.twig', [
+                'sortieForm' => $sortieForm->CreateView(),
+                'listeSortie' => $listeSortie,
+                'listeParticipant' => $listeParticipant,
+            ]);
+        }
+
+        return $this->render('sortie/sortie.html.twig', [
+            'sortieForm' => $sortieForm->CreateView(),
             'listeSortie' => $listeSortie,
-            'listeCampus'=> $listeCampus,
-            'listeParticipant'=> $listeParticipant,
+            'listeParticipant' => $listeParticipant
             ]);
     }
 
@@ -153,29 +170,6 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/sortie.html.twig',
             ['listeSortie' => $listeSortie]);
-    }
-
-    /**
-     * @Route("/recherche-sortie/{id}", name="app_recherche_sortie")
-     */
-    public function rechercheSortie($id): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $repoSortie =  $em->getRepository(Sortie::class);
-        $listeSortie = $repoSortie->searchByCampus($id);
-
-        $repoCampus = $em->getRepository(Campus::class);
-        $listeCampus = $repoCampus->findAll();
-        $sortieForm=$this->createForm(triSortieType::class);
-
-        dump($listeSortie);
-        return $this->redirectToRoute('sortie/recherche-sortie.html.twig',[
-
-            'sortieForm'=>$sortieForm->CreateView(),
-            'listeSortie' => $listeSortie->getId(),
-            'listeCampus'=> $listeCampus
-        ]);
     }
 
     /**

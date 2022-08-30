@@ -13,7 +13,6 @@ class TriSortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('listeCampus', EntityType::class, [
                 'class' => Campus::class,
