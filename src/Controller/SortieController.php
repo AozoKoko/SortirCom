@@ -84,7 +84,28 @@ class SortieController extends AbstractController
         $userEmail = $this->getUser()->getUserIdentifier();
         $user = $repoUser->findOneBy(['email' => $userEmail]);
         $userID = $user->getId();
+        $dateNow = new \DateTime("now");
 
+        $isInscrit = false;
+
+        $participant = $repoParticipant->findOneBy(['id'=>$userID]);
+        $listeInscription = $participant->getInscrits()->getValues();
+        $length = count($listeInscription);
+
+        for($y = 0; $y < $length; $y++){
+            dump($listeInscription[$y]->getId());
+            dump($sortie->getId());
+
+            if($listeInscription[$y]->getId() == $sortie->getId() ){
+                $isInscrit = true;
+            }
+        }
+
+        dump($isInscrit);
+
+
+
+        $listeParticipantReal = $listeParticipant->getValues();
         for($i = 0; $i < $size; $i++){
                 $inscriptions--;
         }
@@ -95,7 +116,9 @@ class SortieController extends AbstractController
             "nomOrga"=> $nomOrga,
             "prenomOrga"=> $prenomOrga,
             "userID"=> $userID,
-            "listeParticipant"=>$listeParticipant,
+            "listeParticipant"=>$listeParticipantReal,
+            "isInscrit"=>$isInscrit,
+            "dateNow"=>$dateNow,
         ]);
     }
 
@@ -240,7 +263,7 @@ class SortieController extends AbstractController
         $participant = $participantRepo->findOneBy(['id' =>$idParticipant]);
         $sortie =  $sortieRepo->findOneBy(['id' => $id]);
 
-        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() < $currentDate){
+        if($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() > $currentDate){
             $sortie->removeParticipant($participant);
 
             $em->persist($sortie);
