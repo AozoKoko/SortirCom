@@ -12,14 +12,26 @@
 }
 
 img {
+    -webkit-transition: .4s all;
+    -moz-transition: .4s all;
+    -ms-transition: .4s all;
+    -o-transition: .4s all;
+    transition: .4s all;
     border: 1px #ddd;
     border-radius: 70%;
     width: 100px;
 }
 
-img:hover {
-    box-shadow: 0 0 10px 10px rgba(240, 140, 186, 1);
-    filter: hue-rotate(10deg) drop-shadow(0 0 1.5rem crimson) saturate(200%);
+img:hover{
+
+
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+    box-shadow: 0 0 10px 3px rgba(240, 76, 110  , 0.8);
+    filter: hue-rotate(-0.1turn) drop-shadow(0 0 2.5rem crimson) saturate(200%);
 }
 
 .content {
