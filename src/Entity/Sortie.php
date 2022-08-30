@@ -79,6 +79,11 @@ class Sortie
      */
     private $lieu;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Motif::class, mappedBy="annulation", cascade={"persist", "remove"})
+     */
+    private $motif;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -232,6 +237,28 @@ class Sortie
     public function setLieu(?Lieu $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getMotif(): ?Motif
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?Motif $motif): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($motif === null && $this->motif !== null) {
+            $this->motif->setAnnulation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($motif !== null && $motif->getAnnulation() !== $this) {
+            $motif->setAnnulation($this);
+        }
+
+        $this->motif = $motif;
 
         return $this;
     }
