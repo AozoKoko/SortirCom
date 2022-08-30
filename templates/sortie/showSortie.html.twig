@@ -17,7 +17,8 @@
         {%if sortie.dateLimiteInscription < dateNow %}
             <h2>La date d'inscription a été dépassée</h2>
 
-
+        {% elseif sortie.etats.id == 6 %}
+            <h2>La sortie est annulée</h2>
 
         {% elseif sortie.organisateur.id == userID %}
             <a href="{{ path('app_modif_sortie',{'id': sortie.id}) }}">
@@ -29,7 +30,7 @@
             </a>
         {% elseif  isInscrit  %}
                 <a href="{{ path('app_desister_sortie',{'id': sortie.id , 'idParticipant': userID}) }}">
-                    <button type="button" class="btn btn-primary">Se desister</button>
+                    <button type="button" class="btn btn-primary">Se désister</button>
                 </a>
 
         {% endif %}
