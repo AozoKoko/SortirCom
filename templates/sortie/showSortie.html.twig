@@ -22,19 +22,19 @@
 
         {% elseif sortie.organisateur.id == userID %}
             <a href="{{ path('app_modif_sortie',{'id': sortie.id}) }}">
-                <button type="button" class="btn btn-primary">Modifier la sortie</button>
+                <button type="button" class="uk-button uk-button-default">Modifier la sortie</button>
             </a>
         {% elseif not isInscrit  %}
             <a href="{{ path('app_inscription_sortie',{'id': sortie.id , 'idParticipant': userID}) }}">
-                <button type="button" class="btn btn-primary">S'incrire</button>
+                <button type="button" class="uk-button uk-button-default">S'incrire</button>
             </a>
         {% elseif  isInscrit  %}
                 <a href="{{ path('app_desister_sortie',{'id': sortie.id , 'idParticipant': userID}) }}">
-                    <button type="button" class="btn btn-primary">Se désister</button>
+                    <button type="button" class="uk-button uk-button-default">Se désister</button>
                 </a>
 
         {% endif %}
-        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button><br><br>
+        <button type="button" onclick="history.back();" class="uk-button uk-button-default">Retour</button><br><br>
     </div>
     <div>
         {% for participant in listeParticipant %}

@@ -10,7 +10,7 @@
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         {% for item in listeSortie %}
             <div>
-                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                <div class="uk-card uk-card-default uk-card-hover uk-card-body ">
                     <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
                     <h4 class="card-title"><b>{{ item.nom }}</b></h4>
                     <p class="card-text">Date de la sortie : {{ item.dateHeureDebut |date('d-m-Y') }}</p>

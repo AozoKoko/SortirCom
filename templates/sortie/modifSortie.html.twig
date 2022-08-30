@@ -5,10 +5,10 @@
     <div>
         {{ form_start(Form) }}
         {{ form_widget(Form) }}
-        <button type="btn btn-primary">Modifier</button>
+        <button type="uk-button uk-button-default">Modifier</button>
         {{ form_end(Form) }}
     </div>
     <div>
-        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="btn btn-primary">Annuler la sortie</a>
+        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="uk-button uk-button-default">Annuler la sortie</a>
     </div>
 {% endblock %}

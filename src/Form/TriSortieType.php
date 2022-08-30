@@ -20,10 +20,11 @@ class TriSortieType extends AbstractType
                 'required' => false,
                 'choice_label' => function($campus) {
                     return $campus->getNom();
-                }
+                },
+                'attr' => array('class' => 'uk-button uk-form-select'),
             ])
             //->add('nomSortie')
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class, array('label' => 'Submit', 'attr' => array('class' => 'uk-button uk-button-default')))
         ;
     }
 
