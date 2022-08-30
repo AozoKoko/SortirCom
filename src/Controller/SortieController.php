@@ -201,7 +201,7 @@ class SortieController extends AbstractController
         $em->persist($sortie);
         $em->flush();
 
-        return $this->redirectToRoute('sortie/sortie.html.twig',);
+        return $this->redirectToRoute('app_sortie');
     }
 
     /**
@@ -213,6 +213,7 @@ class SortieController extends AbstractController
         $prodForm = $this->createForm(SortieType::class,$sortie);
 
         $em = $this->getDoctrine()->getManager();
+        $sortieB = $em->getRepository(Sortie::class)->findOneBy(['id'=>$id]);
         $prodForm->handleRequest($request);
         if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
             //Appelle le repository pour la classe User, me permettant d'utiliser
@@ -224,7 +225,8 @@ class SortieController extends AbstractController
             $this->addFlash('Good', 'Sortie créé !');
             return $this->redirectToRoute('app_main');
         }
-        return $this->render('sortie/newSortie.html.twig', ['Form'=>$prodForm->createView()]);
+        return $this->render('sortie/modifSortie.html.twig', ['Form'=>$prodForm->createView(),
+        "item"=>$sortieB]);
     }
 
     /**
