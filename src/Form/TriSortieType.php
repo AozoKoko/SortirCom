@@ -16,10 +16,13 @@ class TriSortieType extends AbstractType
         $builder
             ->add('listeCampus', EntityType::class, [
                 'class' => Campus::class,
+                'placeholder' => 'Tous les campus',
+                'required' => false,
                 'choice_label' => function($campus) {
                     return $campus->getNom();
                 }
             ])
+            //->add('nomSortie')
             ->add('submit', SubmitType::class)
         ;
     }

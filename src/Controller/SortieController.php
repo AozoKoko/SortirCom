@@ -25,7 +25,7 @@ class SortieController extends AbstractController
      */
     public function index(
         Request $request,
-        SortieRepository $repoSortie, CampusRepository $repoCampus, ParticipantRepository $repoParticipant
+        SortieRepository $repoSortie, ParticipantRepository $repoParticipant
     ): Response
     {
         //on récupère toutes les sorties
@@ -33,19 +33,25 @@ class SortieController extends AbstractController
         //on récupère tous les participants
         $listeParticipant = $repoParticipant->findAll();
 
+
         //on créé un formulaire qui va afficher les campusdans le select
         $sortieForm=$this->createForm(triSortieType::class);
         $sortieForm->handleRequest($request);
 
         //si le formulaire a été validé
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-
             //on récupère les paramètres rentrés
-            $resultat = $request->get("tri_sortie"); $resultat = $resultat["listeCampus"];
+            $resultat = $request->get("tri_sortie");
             //on effectue une recherche par le campus selectionné
-            $listeSortie = $repoSortie->searchByCampus($resultat);
+            if($resultat["listeCampus"] == '')
+                $listeSortie = $repoSortie->findAll();
+            else
+                $listeSortie = $repoSortie->searchByCampus($resultat["listeCampus"]);
 
-            
+
+
+
+
             return $this->render('sortie/sortie.html.twig', [
                 'sortieForm' => $sortieForm->CreateView(),
                 'listeSortie' => $listeSortie,
