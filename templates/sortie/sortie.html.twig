@@ -10,17 +10,17 @@
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         {% for item in listeSortie %}
             <div>
-                <div class="uk-card uk-card-default uk-card-hove    r uk-card-body">
+                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
                     <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
                     <h4 class="card-title"><b>{{ item.nom }}</b></h4>
                     <p class="card-text">Date de la sortie : {{ item.dateHeureDebut |date('d-m-Y') }}</p>
                     <p class="card-text">Clôture : {{ item.dateLimiteInscription |date('d-m-Y') }}</p>
                     <p class="card-text">places : {{ item.nbInscriptionsMax }}</p>
                     <p class="card-text">État : {{ item.etats.libelle }}</p>
-                    <p class="card-text">Inscrit : {{ "À RAJOUTER" }}</p>
+                    <p class="card-text">Inscrit : {{ "à rajouter" }}</p>
                     <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
                     <a href="{{ path('app_delete_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>
-                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
+                    <a href="{{ path('app_annulee',{'id': item.id}) }}" class="btn btn-primary">Annuler</a>
                 </div>
             </div>
     {% endfor %}

@@ -188,17 +188,20 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie-annulee", name="app_annulee")
+     * @Route("/sortie-annulee/{id}", name="app_annulee")
      */
-    public function annulee(): Response
+    public function annulerSortie($id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $repoSortie =  $em->getRepository(Sortie::class);
+        $sortie =  $em->getRepository(Sortie::class)->findOneBy(["id" => $id]);
+        $em = $this->getDoctrine()->getManager();
+        $etat =  $em->getRepository(Etat::class)->findOneBy(["id" => 6]);
+        $sortie->setEtats($etat);
 
-        $listeSortie = $repoSortie->findAll();
+        $em->persist($sortie);
+        $em->flush();
 
-        return $this->render('sortie/sortie.html.twig',
-            ['listeSortie' => $listeSortie]);
+        return $this->redirectToRoute('sortie/sortie.html.twig',);
     }
 
     /**
