@@ -38,7 +38,7 @@
     <div>
         {% for participant in listeParticipant %}
             <div class="space">
-                    {{ participant.nom }}, {{ participant.prenom }}  <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher</a>
+                    {{ participant.prenom ~" "~ participant.nom }}  <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-primary">Afficher</a>
             </div>
         {% endfor %}
     </div>
