@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Campus;
 use App\Entity\Participant;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -29,7 +30,7 @@ class ParticipantType extends AbstractType
                         'max' => 20,
                     ]),
                 ]
-            ])
+                ,'attr' => array('class' => 'uk-textarea')])
             ->add('prenom', textType::class, [
                 'constraints' => [
                     new NotBlank([
@@ -38,7 +39,8 @@ class ParticipantType extends AbstractType
                     new Length([
                         'max' => 20,
                     ]),
-                ]
+                ],
+                'attr' => array('class' => 'uk-textarea')
             ])
             ->add('nom', textType::class, [
                 'constraints' => [
@@ -48,7 +50,8 @@ class ParticipantType extends AbstractType
                     new Length([
                         'max' => 30,
                     ]),
-                ]
+                ],
+                'attr' => array('class' => 'uk-textarea')
             ])
             ->add('telephone', numberType::class, [
                 'constraints' => [
@@ -58,16 +61,18 @@ class ParticipantType extends AbstractType
                     new Length([
                         'max' => 10,
                     ]),
-                ]
+                ],
+                'attr' => array('class' => 'uk-input')
             ])
-            ->add('user', UserType::class)
+            ->add('user', UserType::class,['label'   => false])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => function ($campus) {
                     return $campus->getNom();
-                }
+                },
+                'attr' => array('class' => 'uk-input')
             ])
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, ['attr' => array('class' => 'uk-button uk-form-select')]);
     }
 
 

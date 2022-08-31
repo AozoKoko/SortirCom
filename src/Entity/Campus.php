@@ -120,8 +120,8 @@ class Campus
 
     public function __toString()
     {
-        $noms = $this->getNom();
-        return $noms;
+
+        return $this->nom;
     }
 
 }

@@ -26,7 +26,9 @@ class UserType extends AbstractType
                     new Length([
                         'max' => 20,
                     ]),
-                ]
+
+                ],
+                 'attr' => array('class' => 'uk-input')
             ])
             ->add('password', PasswordType::class, [
 
@@ -41,6 +43,7 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'attr' => array('class' => 'uk-input')
             ]);
     }
 

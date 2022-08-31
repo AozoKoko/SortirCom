@@ -10,8 +10,8 @@
         <h5>E-mail : {{ participant.getUser().getEmail() }}</h5>
         <h5>Campus : {{ participant.getCampus().getNom() }}</h5>
 
-        <a href="{{ path('app_profile_edit') }}"><button type="button" class="btn btn-primary">Modifier le profil</button></a>
-       <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
+        <a href="{{ path('app_profile_edit') }}"><button type="button" class="uk-button uk-button-default">Modifier le profil</button></a>
+       <button type="button" onclick="history.back();" class="uk-button uk-button-default">Retour</button>
 
     </div>
 {% endblock %}

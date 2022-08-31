@@ -31,7 +31,7 @@ class SortieController extends AbstractController
         $length = count($listeSortieUnfiltered);
 
         for ($i = 0; $i < $length ; $i++) {
-            if (!($listeSortieUnfiltered[$i]->getDateHeureDebut()->modify('+1 month') < $now)) {
+            if ($listeSortieUnfiltered[$i]->getDateHeureDebut()->modify('+1 month') >= $now) {
                 array_push($listeSortie, $listeSortieUnfiltered[$i]);
             }
         }
@@ -61,11 +61,12 @@ class SortieController extends AbstractController
             //on récupère les paramètres rentrés
             $resultat = $request->get("tri_sortie");
             //on effectue une recherche par le campus selectionné
-            if($resultat["Campus"] == '')
+            if($resultat["Campus"] == ''){
                 $listeSortie;
-            else
+            }
+            else {
                 $listeSortie = $repoSortie->searchByCampus($resultat["Campus"]);
-
+            }
             $listeSortie = $this->archivageSortie($listeSortie);
 
 
@@ -110,17 +111,11 @@ class SortieController extends AbstractController
         $length = count($listeInscription);
 
         for($y = 0; $y < $length; $y++){
-            dump($listeInscription[$y]->getId());
-            dump($sortie->getId());
 
             if($listeInscription[$y]->getId() == $sortie->getId() ){
                 $isInscrit = true;
             }
         }
-
-        dump($isInscrit);
-
-
 
         $listeParticipantReal = $listeParticipant->getValues();
         for($i = 0; $i < $size; $i++){
@@ -144,7 +139,7 @@ class SortieController extends AbstractController
      */
     public function deleteSortie($id): Response
     {
-        //TODO: security check
+
         //ajouter une sécurité : il faut que ce soit uniquement le créateur qui puisse supprimer la sortie
         $em = $this->getDoctrine()->getManager();
 
@@ -235,7 +230,6 @@ class SortieController extends AbstractController
         if ($prodForm->isSubmitted()&&$prodForm->isValid()) {
             //Appelle le repository pour la classe User, me permettant d'utiliser
             //des méthodes SQL liées à cette classe
-            $userRepo = $em->getRepository(Participant::class);
 
             $em->persist($sortie);
             $em->flush();

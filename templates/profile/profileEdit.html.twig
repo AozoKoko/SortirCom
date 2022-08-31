@@ -2,7 +2,46 @@
 {% block content %}
     <div>
         <h4>Mon profil</h4>
-        {{ form(participantForm) }}
-        <button type="button" onclick="history.back();" class="btn btn-primary">Retour</button>
+        {{ form_start(participantForm) }}
+        <div>
+            {{ form_row(participantForm.pseudo) }}
+        </div>
+
+        <div>
+            {{ form_row(participantForm.prenom) }}
+        </div>
+
+        <div>
+            {{ form_row(participantForm.nom) }}
+        </div>
+
+        <div>
+            {{ form_row(participantForm.telephone) }}
+        </div>
+
+        <div>
+            {{ form_row(participantForm.user) }}
+        </div>
+
+        <div>
+
+        </div>
+
+        <div>
+            {{ form_row(participantForm.campus) }}
+        </div>
+        <br>
+        <br>
+        <div class="uk-flex uk-flex-center">
+            {{ form_row(participantForm.submit) }}
+
+        </div>
+        <br>
+
+        {{ form_end(participantForm) }}
+        <div class="uk-flex uk-flex-center">
+            <button type="button" onclick="history.back();" class="uk-button uk-form-select">Retour</button>
+        </div>
+
     </div>
 {% endblock %}

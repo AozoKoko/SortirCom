@@ -62,10 +62,6 @@ class HomeController extends AbstractController
         $organisateur = $repoParticipant->find($organisateurId->getId());
 
 
-        // tableau
-        $array = array($sortie, $organisateur);
-
-        //return $this->render('home/indexed.html.twig');
 
         return new Response("Sortie : " . $sortie . "<br>Organisateur : " . $organisateur);
     }
