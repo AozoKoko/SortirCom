@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,19 +19,30 @@ class TriSortieType extends AbstractType
                 'class' => Campus::class,
                 'placeholder' => 'Tous les campus',
                 'required' => false,
-                'choice_label' => function($campus) {
+                'choice_label' => function ($campus) {
                     return $campus->getNom();
                 },
-                    'attr' => array('class' => 'uk-button uk-button-flex uk-flex uk-flex-center uk-form-select uk-width-4-4 '), 'label'=>false
-             ])
+                'attr' => array('class' => 'uk-button uk-button-flex uk-flex uk-flex-center uk-form-select uk-width-4-4 '), 'label' => false
+            ])
+            ->add('BetweenDate1', DateTimeType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'uk-textarea'
+                ]
+            ])
+            ->add('BetweenDate2', DateTimeType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'uk-textarea'
+                ]
+            ])
             //->add('nomSortie')
-            ->add('submit',SubmitType::class, array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Submit',
                 'attr' => array(
                     'class' => 'uk-button uk-flex-center uk-button-text uk-button-small uk-width-1-1'
                 )
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -51,7 +52,7 @@ class Sortie
     private $dateLimiteInscription;
 
     /**
-     * @Assert\Length("min="2", max="20",minMessage="Trop petit au moins 2 participants", maxMessage="Trop grand ! max 20 participants")
+     * @Assert\Length(min="2", max="20",minMessage="Trop petit au moins 2 participants", maxMessage="Trop grand ! max 20 participants")
      * @Assert\NotBlank(message="Vous devez saisir un nombre d'inscription max")
      * @ORM\Column(type="integer", nullable=true)
      */
