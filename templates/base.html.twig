@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     {# Encodage du site UTF8 #}
     <meta charset="UTF-8">
 
@@ -38,30 +39,27 @@
 </head>
 <body>
 <!--HEADER-->
-<header id="header" class="header"
+<header id="header"
         data-uk-sticky="show-on-up: true; animation: uk-animation-fade; media: @l">
     <div class="uk-container">
         <nav id="navbar" data-uk-navbar="mode: click;">
             <div class="uk-navbar-left nav-overlay uk-visible@m">
-                <div class="header">
-                    <ul class="uk-navbar-nav">
-                        {% if app.user %}
-                            <li>
-                                <a href="{{ path('app_vue_profile') }}" title="Profile">Profile</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('app_logout') }}" title="Sign Out">Sign Out</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
+                <ul class="uk-navbar-nav">
+
+                    {% if app.user %}
+                        <li>
+                            <a href="{{ path('app_vue_profile') }}" style="color:black" title="Profile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}" style="color:black" title="Sign Out">Sign Out</a>
+                        </li>
+                    {% endif %}
+                </ul>
                 <div class="uk-navbar-center nav-overlay">
                     <a class="uk-navbar-item uk-logo" href="{{ path('app_sortie') }}" title="Logo"><img
                                 src="{{ asset('assets/img/logo.png') }}" alt="Logo"></a>
                 </div>
             </div>
-
-
         </nav>
     </div>
 </header>

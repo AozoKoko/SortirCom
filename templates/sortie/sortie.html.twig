@@ -2,12 +2,14 @@
 
 
 {% block content %}
-    <div class="uk-button uk-form-select">
-        {{ form_start(sortieForm) }}
-        {{ form_widget(sortieForm) }}
-        {{ form_end(sortieForm) }}
+    <div class="uk-flex-column">
+        <div class="uk-flex-center">
+            {{ form_start(sortieForm) }}
+            {{ form_widget(sortieForm) }}
+            {{ form_end(sortieForm) }}
+        </div>
     </div>
-    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+    <div class="uk-child-width-1-2@s uk-grid-match uk-grid">
         {% for item in listeSortie %}
             <div>
                 <div class="uk-card uk-card-default uk-card-hover uk-card-body ">
@@ -23,9 +25,9 @@
                 </div>
             </div>
         {% endfor %}
-        <div>
-            <a href="{{ path('app_sortie_form') }}" class="uk-button uk-button-primary">Créer une sortie</a>
-        </div>
+
     </div>
+    <div>
+        <a href="{{ path('app_sortie_form') }}" class="uk-button uk-button-primary">Créer une sortie</a>
     </div>
 {% endblock %}

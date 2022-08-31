@@ -11,6 +11,8 @@
     height: 100px
 }
 
+label { display: block }
+
 img {
     -webkit-transition: .4s all;
     -moz-transition: .4s all;
@@ -30,7 +32,7 @@ img:hover{
     -ms-transition-delay: 0s;
     -o-transition-delay: 0s;
     transition-delay: 0s;
-    box-shadow: 0 0 10px 3px rgba(240, 76, 110  , 0.8);
+    box-shadow: 0 0 10px 3px rgba(180, 120, 200  , 0.8);
     filter: hue-rotate(-0.1turn) drop-shadow(0 0 2.5rem crimson) saturate(200%);
 }
 

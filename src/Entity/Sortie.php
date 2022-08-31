@@ -21,26 +21,38 @@ class Sortie
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Vous devez saisir un nom")
+     * @Assert\Length(min="2", max="20",minMessage="Trop court au moins 2 caractères", maxMessage="Trop long ! max 20 caractères")
      * @ORM\Column(type="string", length=100)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Vous devez saisir une date")
+     * @Assert\GreaterThan("now", message="La date saisie est invalide")
+     * @Assert\Expression("value > this.getDateLimiteInscription()", message="La date de début doit être supérieur à la date d'inscription")
      * @ORM\Column(type="datetime")
      */
     private $dateHeureDebut;
 
     /**
+     * @Assert\NotBlank(message="Vous devez saisir une sortie")
+     * @Assert\Length(min="2", max="1000",minMessage="Trop petit au moins une durée de 2 minutes", maxMessage="Trop grand ! max 1000 minutes")
+     * @Assert\GreaterThan("0", message="La durée saisie est invalide")
      * @ORM\Column(type="integer")
      */
     private $duree;
 
     /**
+     * @Assert\NotBlank(message="Vous devez saisir une date limite d'inscription")
+     * @Assert\GreaterThan("now", message="La date saisie est invalide")
      * @ORM\Column(type="datetime")
      */
     private $dateLimiteInscription;
 
     /**
+     * @Assert\Length("min="2", max="20",minMessage="Trop petit au moins 2 participants", maxMessage="Trop grand ! max 20 participants")
+     * @Assert\NotBlank(message="Vous devez saisir un nombre d'inscription max")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbInscriptionsMax;

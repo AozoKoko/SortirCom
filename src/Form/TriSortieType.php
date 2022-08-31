@@ -21,10 +21,15 @@ class TriSortieType extends AbstractType
                 'choice_label' => function($campus) {
                     return $campus->getNom();
                 },
-                'attr' => array('class' => 'uk-button uk-form-select'),
-            ])
+                    'attr' => array('class' => 'uk-button uk-button-flex uk-flex uk-flex-center uk-form-select uk-width-4-4 '), 'label'=>false
+             ])
             //->add('nomSortie')
-            ->add('submit',SubmitType::class, array('label' => 'Submit', 'attr' => array('class' => 'uk-button uk-button-default ')))
+            ->add('submit',SubmitType::class, array(
+                'label' => 'Submit',
+                'attr' => array(
+                    'class' => 'uk-button uk-flex-center uk-button-text uk-button-small uk-width-1-1'
+                )
+            ))
         ;
     }
 
