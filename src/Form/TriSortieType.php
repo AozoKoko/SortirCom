@@ -24,7 +24,7 @@ class TriSortieType extends AbstractType
                 'attr' => array('class' => 'uk-button uk-form-select'),
             ])
             //->add('nomSortie')
-            ->add('submit',SubmitType::class, array('label' => 'Submit', 'attr' => array('class' => 'uk-button uk-button-default')))
+            ->add('submit',SubmitType::class, array('label' => 'Submit', 'attr' => array('class' => 'uk-button uk-button-default ')))
         ;
     }
 

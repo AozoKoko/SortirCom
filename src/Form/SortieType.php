@@ -30,7 +30,7 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax', NumberType::class,['attr' => array('class' => 'uk-input')])
             ->add('infosSortie',TextareaType::class,['attr' => array('class' => 'uk-textarea')])
             ->add('lieu',EntityType::class,['class' => Lieu::class,
-                'attr' => array('class' => 'uk-button uk-form-select')])
+                'attr' => array('class' => 'uk-button uk-form-select'),'label'   => false,  ])
 
         ;
     }

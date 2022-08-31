@@ -5,9 +5,40 @@
 
   {{ form_start(Form) }}
 
-  {{ form_widget(Form) }}
+  <div>
+      {{ form_row(Form.nom) }}
+  </div>
+  <br>
+  <div>
+    {{ form_row(Form.dateHeureDebut) }}
+  </div>
+  <br>
+  <div>
+    {{ form_row(Form.duree) }}
+  </div>
+  <br>
+  <div>
+    {{ form_row(Form.dateLimiteInscription) }}
+  </div>
+  <br>
+  <div>
+    {{ form_row(Form.nbInscriptionsMax) }}
+  </div>
+  <br>
+  <div>
+    {{ form_row(Form.infosSortie) }}
+  </div>
+  <br>
+  <div class="uk-flex uk-flex-center">
+    {{ form_row(Form.lieu) }}
+  </div>
+  <br>
 
-    <button type="button" class="uk-button uk-button-default uk-flex-center">Submit</button>
+
+  <div class="uk-flex uk-flex-center">
+    <button type="button" class="uk-button uk-button-default">Submit</button>
+  </div>
+
   {{ form_end(Form) }}
 
 

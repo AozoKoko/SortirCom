@@ -4,11 +4,49 @@
 {% block content %}
     <div>
         {{ form_start(Form) }}
-        {{ form_widget(Form) }}
-        <button type="uk-button uk-button-default">Modifier</button>
+       <div>
+           {{ form_row(Form.nom,{'attr':{'value': item.nom}} ) }}
+       </div>
+        <br>
+        <div>
+            {{ form_row(Form.dateHeureDebut) }}
+        </div>
+        <br>
+        <div>
+            {{ form_row(Form.duree,{'attr':{'value': item.duree}}) }}
+        </div>
+        <br>
+        <div>
+            {{ form_row(Form.dateLimiteInscription) }}
+        </div>
+        <br>
+        <div>
+            {{ form_row(Form.nbInscriptionsMax,{'attr':{'value': item.nbInscriptionsMax}}) }}
+        </div>
+        <br>
+        <div>
+            {{ form_row(Form.infosSortie,{'attr':{'value': item.infosSortie}}) }}
+        </div>
+        <br>
+     <div class="uk-flex uk-flex-center">
+         <label >Lieu</label>
+     </div>
+        <div class="uk-flex uk-flex-center">
+
+
+            <br>
+            {{ form_row(Form.lieu,{'attr':{'value': item.lieu}}) }}
+        </div>
+        <br>
+        <br>
+        <div class="uk-flex uk-flex-center">
+            <button class="uk-button uk-button-default">Modifier</button>
+        </div>
+
         {{ form_end(Form) }}
     </div>
-    <div>
-        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="uk-button uk-button-default">Annuler la sortie</a>
+    <br>
+    <div class="uk-flex uk-flex-center">
+        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="uk-button uk-button-default ">Annuler la sortie</a>
     </div>
 {% endblock %}
