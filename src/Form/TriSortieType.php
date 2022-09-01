@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,19 +23,30 @@ class TriSortieType extends AbstractType
                 'choice_label' => function ($campus) {
                     return $campus->getNom();
                 },
-                'attr' => array('class' => 'uk-button uk-button-flex uk-flex uk-flex-center uk-form-select uk-width-4-4 '), 'label' => false
+                'attr' => array('class' => 'uk-button uk-flex-center uk-form-select'), 'label' => false
             ])
             ->add('BetweenDate1', DateTimeType::class, [
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'uk-textarea'
-                ]
+                ],
+                'required' => false,
+                'label'=>false
             ])
             ->add('BetweenDate2', DateTimeType::class, [
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'uk-textarea'
-                ]
+                ],
+                'required' => false,
+                'label' => false,
+            ])
+            ->add('Organisateur', CheckboxType::class,[
+                'attr' => [
+                    'class' => 'uk-checkboxType'
+                ],
+                'required' => false,
+                'label' => false,
             ])
             //->add('nomSortie')
             ->add('submit', SubmitType::class, array(

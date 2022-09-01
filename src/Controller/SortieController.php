@@ -60,8 +60,9 @@ class SortieController extends AbstractController
     public function triParOrganisateur($tableauATrier): array
     {
         $em = $this->getDoctrine()->getManager();
-        $repoParticipant = $em->getRepository(User::class);
+        $repoParticipant = $em->getRepository(Participant::class);
         $repoUser = $em->getRepository(User::class);
+        $repo = $em->getRepository(Sortie::class);
         $tableau = array();
         $length = count ($tableauATrier);
         $userEmail = $this->getUser()->getUserIdentifier();
