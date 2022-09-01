@@ -57,30 +57,6 @@ class SortieController extends AbstractController
         return $tableau;
     }
 
-    public function triParOrganisateur($tableauATrier): array
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repoParticipant = $em->getRepository(Participant::class);
-        $repoUser = $em->getRepository(User::class);
-        $repo = $em->getRepository(Sortie::class);
-        $tableau = array();
-        $length = count ($tableauATrier);
-        $userEmail = $this->getUser()->getUserIdentifier();
-        $user = $repoUser->findOneBy(['email' => $userEmail]);
-        $userID = $user->getId();
-        $participant = $repoParticipant->findOneBy(['id' => $userID]);
-        $participantID = $participant->getId();
-        /*$idUtilisateur =
-        $idParticipantUtilisateur = $repoParticipaFindOneBy('User', $emailUtilisateur);
-        $emailOrganisateur = $repoFindOneBy('Organisateur'->get)
-
-        for ($i = 0; $i < $length; $i++) {
-            //if($tableauATrier[$i]->)
-            //$tableau [] = $tableauATrier [$i];
-        }*/
-        return $tableau;
-    }
-
     /**
      * @Route("/sortie", name="app_sortie")
      * @throws \Exception
@@ -108,9 +84,6 @@ class SortieController extends AbstractController
                 $listeSortie = $this->betweenDate($resultat['BetweenDate1'], $resultat['BetweenDate2'], $listeSortie);
             }
 
-            /*if($resultat['Organisateur'] == 1) {
-                $listeSortie = $this->triParOrganisateur($resultat['Organisateur']);
-            }*/
             //on effectue une recherche par le campus selectionné
             if ($resultat["Campus"] == '') {
                 $listeSortie;
