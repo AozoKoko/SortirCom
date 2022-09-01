@@ -23,7 +23,7 @@ class Sortie
 
     /**
      * @Assert\NotBlank(message="Vous devez saisir un nom")
-     * @Assert\Length(min="2", max="20",minMessage="Trop court au moins 2 caractères", maxMessage="Trop long ! max 20 caractères")
+     * @Assert\Length(min="2", max="100",minMessage="Trop court au moins 2 caractères", maxMessage="Trop long ! max 100 caractères")
      * @ORM\Column(type="string", length=100)
      */
     private $nom;
@@ -38,8 +38,7 @@ class Sortie
 
     /**
      * @Assert\NotBlank(message="Vous devez saisir une sortie")
-     * @Assert\Length(min="2", max="1000",minMessage="Trop petit au moins une durée de 2 minutes", maxMessage="Trop grand ! max 1000 minutes")
-     * @Assert\GreaterThan("0", message="La durée saisie est invalide")
+     * @Assert\Length(min="2", max="1000",minMessage="Trop petit au moins une durée de 2 heures", maxMessage="Trop grand ! max 1000 heures")
      * @ORM\Column(type="integer")
      */
     private $duree;
