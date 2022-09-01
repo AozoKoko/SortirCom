@@ -46,14 +46,37 @@ class SortieController extends AbstractController
 
         $length = count($tableauATrier);
 
+        $date1 = new \DateTime($date1);
+        $date2 = new \DateTime($date2);
         for ($i = 0; $i < $length; $i++) {
-            $date1 = new \DateTime($date1);
-            $date2 = new \DateTime($date2);
             if (($tableauATrier[$i]->getDateHeureDebut() >= $date1) AND ($tableauATrier[$i]->getDateHeureDebut() <= $date2)) {
                 $tableau[] = $tableauATrier[$i];
             }
         }
         dump($tableau);
+        return $tableau;
+    }
+
+    public function triParOrganisateur($tableauATrier): array
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoParticipant = $em->getRepository(User::class);
+        $repoUser = $em->getRepository(User::class);
+        $tableau = array();
+        $length = count ($tableauATrier);
+        $userEmail = $this->getUser()->getUserIdentifier();
+        $user = $repoUser->findOneBy(['email' => $userEmail]);
+        $userID = $user->getId();
+        $participant = $repoParticipant->findOneBy(['id' => $userID]);
+        $participantID = $participant->getId();
+        /*$idUtilisateur =
+        $idParticipantUtilisateur = $repoParticipaFindOneBy('User', $emailUtilisateur);
+        $emailOrganisateur = $repoFindOneBy('Organisateur'->get)
+
+        for ($i = 0; $i < $length; $i++) {
+            //if($tableauATrier[$i]->)
+            //$tableau [] = $tableauATrier [$i];
+        }*/
         return $tableau;
     }
 
@@ -82,16 +105,17 @@ class SortieController extends AbstractController
             $resultat = $request->get("tri_sortie");;
             if ($resultat['BetweenDate1'] != null && $resultat['BetweenDate2'] != null) {
                 $listeSortie = $this->betweenDate($resultat['BetweenDate1'], $resultat['BetweenDate2'], $listeSortie);
-                dump($resultat['BetweenDate1']);
-                dump($listeSortie);
             }
+
+            /*if($resultat['Organisateur'] == 1) {
+                $listeSortie = $this->triParOrganisateur($resultat['Organisateur']);
+            }*/
             //on effectue une recherche par le campus selectionné
             if ($resultat["Campus"] == '') {
                 $listeSortie;
             } else {
                 $listeSortie = $repoSortie->searchByCampus($resultat["Campus"]);
             }
-
 
             $listeSortie = $this->archivageSortie($listeSortie);
 
