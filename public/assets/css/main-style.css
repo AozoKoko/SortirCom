@@ -38,30 +38,22 @@ img:hover{
 
 /*}*/
 
-/*.uk-card {*/
-/*    background-color: #F87575;*/
-/*    color: #e0e0e0;*/
-/*    border-radius: 5%;*/
-/*    !*box-shadow: 5px 1px 1px #F87575;*!*/
-/*}*/
-
-.uk-button {
-    border-radius: 5%;
+.uk-card {
+    border-radius: 2%;
 }
 
-/*.uk-button:hover {*/
-/*    background: #F87575;*/
-/*}*/
+.uk-button {
+    border-radius: 2%;
+    box-shadow: 3px 3px 3px dimgrey;
+}
 
-/*.card-title {*/
-/*    color: #F87575;*/
-/*}*/
+.uk-logo-1 {
+    width: 200px;
+}
 
-/*.uk-button-primary {*/
-/*    background: #336699;*/
-/*    border-radius: 5%;*/
-/*}*/
-
+.uk-card:hover {
+    background: #DDDDDD;
+}
 
 
 
