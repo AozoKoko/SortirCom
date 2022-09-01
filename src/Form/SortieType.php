@@ -31,7 +31,11 @@ class SortieType extends AbstractType
             ->add('infosSortie',TextareaType::class,['attr' => array('class' => 'uk-textarea')])
             ->add('lieu',EntityType::class,['class' => Lieu::class,
                 'attr' => array('class' => 'uk-button uk-form-select'),'label'   => false,  ])
-
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => "uk-button uk-button-secondary"
+                ]
+            ])
         ;
     }
 

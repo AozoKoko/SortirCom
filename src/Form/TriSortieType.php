@@ -41,13 +41,6 @@ class TriSortieType extends AbstractType
                 'required' => false,
                 'label' => false,
             ])
-            ->add('Organisateur', CheckboxType::class,[
-                'attr' => [
-                    'class' => 'uk-checkboxType'
-                ],
-                'required' => false,
-                'label' => false,
-            ])
             //->add('nomSortie')
             ->add('submit', SubmitType::class, array(
                 'label' => 'Submit',
