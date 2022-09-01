@@ -72,7 +72,7 @@ class ParticipantType extends AbstractType
                 },
                 'attr' => array('class' => 'uk-input')
             ])
-            ->add('submit', SubmitType::class, ['attr' => array('class' => 'uk-button uk-form-select')]);
+            ->add('submit', SubmitType::class, ['attr' => array('class' => 'uk-button uk-button-secondary uk-form-select')]);
     }
 
 

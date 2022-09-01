@@ -1,10 +1,3 @@
-/*main{*/
-/*    position: relative;*/
-/*    min-height: 100%;*/
-/*    min-width: 100%*/
-/*}
-*/
-
 
 .header {
     background-color: white;
@@ -52,11 +45,9 @@ img:hover{
 /*    !*box-shadow: 5px 1px 1px #F87575;*!*/
 /*}*/
 
-/*.uk-button {*/
-/*    background: #336699;*/
-/*    color: #e0e0e0;*/
-/*    border-radius: 5%;*/
-/*}*/
+.uk-button {
+    border-radius: 5%;
+}
 
 /*.uk-button:hover {*/
 /*    background: #F87575;*/
@@ -71,74 +62,6 @@ img:hover{
 /*    border-radius: 5%;*/
 /*}*/
 
-
-/*html {*/
-/*    height: 100%;*/
-/*}*/
-/*body {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    font-family: sans-serif;*/
-/*    background: #f2eee3;*/
-/*}*/
-/*.sortie-box {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    width: 400px;*/
-/*    padding: 40px;*/
-/*    transform: translate(-50%, -50%);*/
-/*    background: rgba(0,0,0,.5);*/
-/*    box-sizing: border-box;*/
-/*    box-shadow: 0 15px 25px rgba(0,0,0,.6);*/
-/*    border-radius: 10px;*/
-/*}*/
-/*.sortie-box h2 {*/
-/*    margin: 0 0 30px;*/
-/*    padding: 0;*/
-/*    color: #fff;*/
-/*    text-align: center;*/
-/*}*/
-/*.sortie-box .user-sortie {*/
-/*    position: relative;*/
-/*}*/
-/*.sortie-box .card-text {*/
-
-/*}*/
-/*.sortie-box form a {*/
-/*    position: relative;*/
-/*    display: inline-block;*/
-/*    padding: 10px 20px;*/
-/*    color: #03e9f4;*/
-/*    font-size: 16px;*/
-/*    text-decoration: none;*/
-/*    text-transform: uppercase;*/
-/*    overflow: hidden;*/
-/*    transition: .5s;*/
-/*    margin-top: 40px;*/
-/*    letter-spacing: 4px;*/
-/*}*/
-/*.sortie-box a:hover {*/
-/*    background: #03e9f4;*/
-/*    color: #fff;*/
-/*    border-radius: 5px;*/
-/*    box-shadow: 0 0 5px #03e9f4,*/
-/*                0 0 25px #03e9f4,*/
-/*                0 0 50px #03e9f4,*/
-/*                0 0 100px #03e9f4;*/
-/*}*/
-/*.sortie-box a span {*/
-/*    position: absolute;*/
-/*    display: block;*/
-/*}*/
-/*.sortie-box a span:nth-child(1) {*/
-/*    top: 0;*/
-/*    left: -100%;*/
-/*    width: 100%;*/
-/*    height: 2px;*/
-/*    background: linear-gradient(90deg, transparent, #03e9f4);*/
-/*    animation: btn;*/
-/*}*/
 
 
 
