@@ -4,6 +4,9 @@
 /*    min-width: 100%*/
 /*}
 */
+/*html {*/
+/*    background: #2F4858;*/
+/*}*/
 
 .header {
     background-color: white;
@@ -25,8 +28,6 @@ img {
 }
 
 img:hover{
-
-
     -webkit-transition-delay: 0s;
     -moz-transition-delay: 0s;
     -ms-transition-delay: 0s;
@@ -49,7 +50,28 @@ footer {
 .uk-card {
     background-color: #336699;
     color: #e0e0e0;
+    border-radius: 5%;
 }
+
+.uk-button {
+    background: #336699;
+    color: #e0e0e0;
+    border-radius: 5%;
+}
+
+.uk-button:hover {
+    background: #F87575;
+}
+
+.card-title {
+    color: #F87575;
+}
+
+.uk-button-primary {
+    background: #336699;
+    border-radius: 5%;
+}
+
 
 /*html {*/
 /*    height: 100%;*/
