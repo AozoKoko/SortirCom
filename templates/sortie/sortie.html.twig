@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
 {% block content %}
     <br>
     <br>
@@ -40,7 +39,7 @@
                     <p class="card-text">État : {{ item.etats.libelle }}</p>
                     <p class="card-text">Inscrit : {{ "à rajouter" }}</p>
                     <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
-                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-default">Voir sortie</a>
+                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-secondary">Voir sortie</a>
                 </div>
             </div>
         {% endfor %}

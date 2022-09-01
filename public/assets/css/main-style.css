@@ -4,9 +4,7 @@
 /*    min-width: 100%*/
 /*}
 */
-/*html {*/
-/*    background: #2F4858;*/
-/*}*/
+
 
 .header {
     background-color: white;
@@ -37,40 +35,41 @@ img:hover{
     filter: hue-rotate(-0.1turn) drop-shadow(0 0 2.5rem crimson) saturate(200%);
 }
 
-.content {
-    height: 720px;
-}
+/*.content {*/
+/*    height: 720px;*/
+/*}*/
 
-footer {
-    height: 70px;
-    position: relative;
+/*footer {*/
+/*    height: 70px;*/
+/*    position: relative;*/
 
-}
+/*}*/
 
-.uk-card {
-    background-color: #336699;
-    color: #e0e0e0;
-    border-radius: 5%;
-}
+/*.uk-card {*/
+/*    background-color: #F87575;*/
+/*    color: #e0e0e0;*/
+/*    border-radius: 5%;*/
+/*    !*box-shadow: 5px 1px 1px #F87575;*!*/
+/*}*/
 
-.uk-button {
-    background: #336699;
-    color: #e0e0e0;
-    border-radius: 5%;
-}
+/*.uk-button {*/
+/*    background: #336699;*/
+/*    color: #e0e0e0;*/
+/*    border-radius: 5%;*/
+/*}*/
 
-.uk-button:hover {
-    background: #F87575;
-}
+/*.uk-button:hover {*/
+/*    background: #F87575;*/
+/*}*/
 
-.card-title {
-    color: #F87575;
-}
+/*.card-title {*/
+/*    color: #F87575;*/
+/*}*/
 
-.uk-button-primary {
-    background: #336699;
-    border-radius: 5%;
-}
+/*.uk-button-primary {*/
+/*    background: #336699;*/
+/*    border-radius: 5%;*/
+/*}*/
 
 
 /*html {*/
