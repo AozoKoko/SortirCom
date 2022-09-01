@@ -8,8 +8,22 @@
     <div class="uk-flex-column">
         <div class="uk-flex-center">
             {{ form_start(sortieForm) }}
-            <div></div>
-
+            <div>
+                {{ form_row(sortieForm.Campus) }}
+            </div>
+            <br>
+            <div>
+                {{ form_row(sortieForm.BetweenDate1) }}
+            </div>
+            <br>
+            <div>
+                {{ form_row(sortieForm.BetweenDate2) }}
+            </div>
+            <br>
+            <div class="uk-flex uk-flex-center">
+                {{ form_row(sortieForm.submit) }}
+            </div>
+            <br>
 
             {{ form_end(sortieForm) }}
         </div>
@@ -26,8 +40,7 @@
                     <p class="card-text">État : {{ item.etats.libelle }}</p>
                     <p class="card-text">Inscrit : {{ "à rajouter" }}</p>
                     <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
-                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="btn btn-primary">Voir sortie</a>
-{#                    <a href="{{ path('app_delete_sortie',{'id': item.id}) }}" class="btn btn-primary">Supprimer</a>#}
+                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-default">Voir sortie</a>
                 </div>
             </div>
         {% endfor %}
