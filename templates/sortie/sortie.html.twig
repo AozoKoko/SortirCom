@@ -7,45 +7,55 @@
     <div class="uk-flex-column">
         <div class="uk-flex-center">
             {{ form_start(sortieForm) }}
-            <div>
+            <div class="uk-flex uk-flex-center">
                 {{ form_row(sortieForm.Campus) }}
             </div>
-            <br>
             <div>
+                <label>Entre le </label>
                 {{ form_row(sortieForm.BetweenDate1) }}
-            </div>
-            <br>
-            <div>
+                <label> et le </label>
                 {{ form_row(sortieForm.BetweenDate2) }}
             </div>
-            <br>
+            <br/>
+
+
+            <div>
+            </div>
+            <br/>
+            <div class="uk-flex uk-flex-center"><label>et le</label>
+                {{ form_row(sortieForm.Organisateur) }}
+            </div>
+
+
+            <br/>
             <div class="uk-flex uk-flex-center">
                 {{ form_row(sortieForm.submit) }}
             </div>
-            <br>
-
+            <br/>
             {{ form_end(sortieForm) }}
         </div>
     </div>
     <br>
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         {% for item in listeSortie %}
-            <div>
-                <div class="uk-card uk-card-default uk-card-body ">
-                    <h4 class="card-title"><b>{{ item.nom }}</b></h4>
-                    <p class="card-text">Date de la sortie : {{ item.dateHeureDebut |date('d-m-Y') }}</p>
-                    <p class="card-text">Clôture : {{ item.dateLimiteInscription |date('d-m-Y') }}</p>
-                    <p class="card-text">places : {{ item.nbInscriptionsMax }}</p>
-                    <p class="card-text">État : {{ item.etats.libelle }}</p>
-                    <p class="card-text">Inscrit : {{ "à rajouter" }}</p>
-                    <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
-                    <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-secondary">Voir sortie</a>
-                </div>
+            <div class="uk-card uk-card-default uk-card-body ">
+                <h4 class="card-title"><b>{{ item.nom }}</b></h4>
+                <p class="card-text">Date de la sortie : {{ item.dateHeureDebut |date('d-m-Y') }}</p>
+                <p class="card-text">Clôture : {{ item.dateLimiteInscription |date('d-m-Y') }}</p>
+                <p class="card-text">places : {{ item.nbInscriptionsMax }}</p>
+                <p class="card-text">État : {{ item.etats.libelle }}</p>
+                <p class="card-text">Inscrit : {{ "à rajouter" }}</p>
+                <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
+                <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-secondary">Voir
+                    sortie</a>
             </div>
         {% endfor %}
+        <span>
+            <a href="{{ path('app_sortie_form') }}"
+               class="uk-button uk-button-secondary uk-flex uk-flex-center uk-flex-middle"><b><u>Créer une sortie</u></b></a>
+            </span>
     </div>
     <br>
     <div>
-        <a href="{{ path('app_sortie_form') }}" class="uk-button uk-button-secondary">Créer une sortie</a>
     </div>
 {% endblock %}
