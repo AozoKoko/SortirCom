@@ -40,7 +40,7 @@ class TriSortieType extends AbstractType
             ->add('submit', SubmitType::class, array(
                 'label' => 'Submit',
                 'attr' => array(
-                    'class' => 'uk-button uk-flex-center uk-button-text uk-button-small uk-width-1-1'
+                    'class' => 'uk-button uk-flex-center  uk-button-default '
                 )
             ));
     }

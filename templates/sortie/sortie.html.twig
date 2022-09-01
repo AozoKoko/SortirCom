@@ -2,14 +2,20 @@
 
 
 {% block content %}
+    <br>
+    <br>
+    <br>
     <div class="uk-flex-column">
         <div class="uk-flex-center">
             {{ form_start(sortieForm) }}
-            {{ form_widget(sortieForm) }}
+            <div></div>
+
+
             {{ form_end(sortieForm) }}
         </div>
     </div>
-    <div class="uk-child-width-1-2@s uk-grid-match uk-grid">
+    <br>
+    <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
         {% for item in listeSortie %}
             <div>
                 <div class="uk-card uk-card-default uk-card-hover uk-card-body ">
