@@ -37,8 +37,8 @@ class Sortie
     private $dateHeureDebut;
 
     /**
-     * @Assert\NotBlank(message="Vous devez saisir une sortie")
-     * @Assert\Length(min="2", max="1000",minMessage="Trop petit au moins une durée de 2 heures", maxMessage="Trop grand ! max 1000 heures")
+     * @Assert\Expression("value > 2", message="La durée doit être supérieur à 2")
+     * @Assert\NotBlank(message="Vous devez saisir une dur")
      * @ORM\Column(type="integer")
      */
     private $duree;
@@ -51,6 +51,7 @@ class Sortie
     private $dateLimiteInscription;
 
     /**
+     * @Assert\Expression("value > 2", message="Il doit y avoir au moins 2 inscrits")
      * @Assert\NotBlank(message="Vous devez saisir un nombre d'inscription max")
      * @ORM\Column(type="integer", nullable=true)
      */
