@@ -138,11 +138,18 @@ class SortieController extends AbstractController
      */
     public function showSortie($id): Response
     {
+        //Récupération du manager
         $em = $this->getDoctrine()->getManager();
+
+        //Récupuration des différents Repo nécessaire pour les appel de données
         $repo = $em->getRepository(Sortie::class);
         $repoParticipant = $em->getRepository(Participant::class);
         $repoUser = $em->getRepository(User::class);
+
+        //Définition de la sortie à afficher
         $sortie = $repo->findOneBy(['id' => $id]);
+
+        //Récupération et initialisation des données nécessaires
         $listeParticipant = $sortie->getParticipants();
         $size = count($listeParticipant);
         $nomOrga = $sortie->getOrganisateur()->getNom();
@@ -152,22 +159,26 @@ class SortieController extends AbstractController
         $user = $repoUser->findOneBy(['email' => $userEmail]);
         $userID = $user->getId();
         $dateNow = new \DateTime("now");
-
         $isInscrit = false;
-
         $participant = $repoParticipant->findOneBy(['id' => $userID]);
         $listeInscription = $participant->getInscrits()->getValues();
         $length = count($listeInscription);
 
+        //Passe à travers tout l'array listeInscription
         for ($y = 0; $y < $length; $y++) {
 
+            //Vérifie si l'ID de l'objet Participant inscrit correspond à celui de la bonne sortie
             if ($listeInscription[$y]->getId() == $sortie->getId()) {
                 $isInscrit = true;
             }
         }
 
+        //Obtient la liste complête des participants inscrits à la sortie
         $listeParticipantReal = $listeParticipant->getValues();
+
+
         for ($i = 0; $i < $size; $i++) {
+            //Retire 1 au nombre d'inscriptions pour chaque entité dans la liste
             $inscriptions--;
         }
 
@@ -200,16 +211,21 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie');
     }
 
+
     /**
      * @Route("/new-sortie/", name="app_sortie_form")
      */
     public function getFormSortie(Request $request): Response
     {
+        //crée et initialise le formulaire de création de sorties
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class, $sortie);
 
+        //récupération du manager et détection de la request
         $em = $this->getDoctrine()->getManager();
         $prodForm->handleRequest($request);
+
+        //Vérification de si la requète a été soumise et est valide
         if ($prodForm->isSubmitted() && $prodForm->isValid()) {
 
             //Appelle le repository pour la classe User, me permettant d'utiliser
@@ -253,12 +269,15 @@ class SortieController extends AbstractController
      */
     public function annulerSortie($id): Response
     {
+        //Récupération du manager et des Repository
         $em = $this->getDoctrine()->getManager();
         $sortie = $em->getRepository(Sortie::class)->findOneBy(["id" => $id]);
-        $em = $this->getDoctrine()->getManager();
         $etat = $em->getRepository(Etat::class)->findOneBy(["id" => 6]);
+
+        //Change l'état de la sortie
         $sortie->setEtats($etat);
 
+        //Envoie la sortie modifiée en database
         $em->persist($sortie);
         $em->flush();
 
@@ -270,6 +289,7 @@ class SortieController extends AbstractController
      */
     public function getFormSortieModify(Request $request, $id): Response
     {
+        //Permet l'initialisation du formulaire
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class, $sortie);
 
@@ -294,17 +314,23 @@ class SortieController extends AbstractController
      */
     public function inscriptionSortie($id, $idParticipant): Response
     {
+        //Récupération de l'entityManager et des Repo nécessaires au bon fonctionnement de la méthode
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
         $participantRepo = $em->getRepository(Participant::class);
+
+        //Récupération de la date au moment de l'execution de la fonction
         $currentDate = new \DateTime('now');
 
+        //Récupération de l'utilisateur et de la sortie utilisée par la méthode
         $participant = $participantRepo->findOneBy(['id' => $idParticipant]);
         $sortie = $sortieRepo->findOneBy(['id' => $id]);
 
+        //Vérification de l'état de la sortie et de sa date de limite d'inscription
         if ($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() > $currentDate) {
-            $sortie->addParticipant($participant);
 
+            //Ajoute le participant à la sortie et l'ajoute à la base de donnée
+            $sortie->addParticipant($participant);
             $em->persist($sortie);
             $em->flush();
 
@@ -320,17 +346,23 @@ class SortieController extends AbstractController
      */
     public function desisterSortie($id, $idParticipant): Response
     {
+        //Récupération de l'entityManager et des Repo nécessaires au bon fonctionnement de la méthode
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
         $participantRepo = $em->getRepository(Participant::class);
+
+        //Récupération de la date au moment de l'execution de la fonction
         $currentDate = new \DateTime('now');
 
+        //Récupération de l'utilisateur et de la sortie utilisée par la méthode
         $participant = $participantRepo->findOneBy(['id' => $idParticipant]);
         $sortie = $sortieRepo->findOneBy(['id' => $id]);
 
+        //Vérification de l'état de la sortie et de sa date de limite d'inscription
         if ($sortie->getEtats()->getId() == 2 && $sortie->getDateLimiteInscription() > $currentDate) {
-            $sortie->removeParticipant($participant);
 
+            //Ajoute le participant à la sortie et l'ajoute à la base de donnée
+            $sortie->removeParticipant($participant);
             $em->persist($sortie);
             $em->flush();
 
