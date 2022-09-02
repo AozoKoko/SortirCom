@@ -41,6 +41,7 @@
             <div class="space">
                     {{ participant.prenom ~" "~ participant.nom }}  <a href="{{ path('app_vue_other_profile', {'id': participant.id}) }}" class="btn btn-secondary">Afficher</a>
             </div>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}
