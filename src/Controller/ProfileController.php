@@ -19,10 +19,13 @@ class ProfileController extends AbstractController
      * @Route("/vue-profile/", name="app_vue_profile")
      */
     public function displayProfile(
-        UserRepository $userRepository,
+        UserRepository        $userRepository,
         ParticipantRepository $participantsRepository
     ): Response
     {
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute("app_login");
+        }
         $email = $this->getUser()->getUserIdentifier();
 
         $currentUser = $userRepository->findOneBy(['email' => $email]);
@@ -39,6 +42,9 @@ class ProfileController extends AbstractController
      */
     public function editProfile(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute("app_login");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $userRepo = $em->getRepository(User::class);
@@ -92,6 +98,9 @@ class ProfileController extends AbstractController
         UserRepository $repository
     ): Response
     {
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute("app_login");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $userRepo = $em->getRepository(User::class);
