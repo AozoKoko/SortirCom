@@ -27,6 +27,10 @@
     </div>
     <br>
     <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+        <span>
+            <a href="{{ path('app_sortie_form') }}"
+               class="uk-button uk-button-secondary uk-flex uk-flex-center uk-flex-middle"><b><u>Créer une sortie</u></b></a>
+            </span>
         {% for item in listeSortie %}
             <div class="uk-card uk-card-default uk-card-body ">
                 <h4 class="card-title"><b>{{ item.nom }}</b></h4>
@@ -35,13 +39,10 @@
                 <p class="card-text">places : {{ item.nbInscriptionsMax }}</p>
                 <p class="card-text">État : {{ item.etats.libelle }}</p>
                 <p class="card-text">Organisateur : {{ item.organisateur.prenom }}</p>
-                <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-secondary ">Voir sortie</a>
+                <a href="{{ path('app_show_sortie',{'id': item.id}) }}" class="uk-button uk-button-secondary ">Voir
+                    sortie</a>
             </div>
         {% endfor %}
-        <span>
-            <a href="{{ path('app_sortie_form') }}"
-               class="uk-button uk-button-secondary uk-flex uk-flex-center uk-flex-middle"><b><u>Créer une sortie</u></b></a>
-            </span>
     </div>
     <br>
     <div>
