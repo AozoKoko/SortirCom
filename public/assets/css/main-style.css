@@ -28,16 +28,6 @@ img:hover{
     filter: hue-rotate(0.2turn) drop-shadow(0 0 2.5rem black) saturate(200%);
 }
 
-/*.content {*/
-/*    height: 720px;*/
-/*}*/
-
-/*footer {*/
-/*    height: 70px;*/
-/*    position: relative;*/
-
-/*}*/
-
 .uk-card {
     border-radius: 2%;
 }

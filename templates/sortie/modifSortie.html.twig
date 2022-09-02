@@ -40,13 +40,17 @@
         <br>
         <br>
         <div class="uk-flex uk-flex-center">
-            <button class="uk-button uk-button-default">Modifier</button>
+            <button class="uk-button uk-button-secondary">Modifier</button>
         </div>
-
+        <br>
+            <div class="uk-flex uk-flex-center">
+                {{ form_row(Form.submit) }}
+            </div>
         {{ form_end(Form) }}
     </div>
     <br>
     <div class="uk-flex uk-flex-center">
-        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="uk-button uk-button-default ">Annuler la sortie</a>
+        <a href="{{ path('app_annulee',{'id': item.id}) }}" class="uk-button uk-button-secondary">Annuler la sortie</a>
     </div>
+    <br>
 {% endblock %}
