@@ -66,6 +66,10 @@ class SortieController extends AbstractController
         SortieRepository $repoSortie, ParticipantRepository $repoParticipant
     ): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
+
         $listeSortieUnfiltered = $repoSortie->findAll();
         //on récupère tous les participants
         $listeParticipant = $repoParticipant->findAll();
@@ -112,6 +116,10 @@ class SortieController extends AbstractController
      */
     public function showSortie($id): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
+
         //Récupération du manager
         $em = $this->getDoctrine()->getManager();
 
@@ -174,6 +182,10 @@ class SortieController extends AbstractController
      */
     public function getFormSortie(Request $request): Response
     {
+
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
         //crée et initialise le formulaire de création de sorties
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class, $sortie);
@@ -226,6 +238,10 @@ class SortieController extends AbstractController
      */
     public function annulerSortie($id): Response
     {
+
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
         //Récupération du manager et des Repository
         $em = $this->getDoctrine()->getManager();
         $sortie = $em->getRepository(Sortie::class)->findOneBy(["id" => $id]);
@@ -246,6 +262,10 @@ class SortieController extends AbstractController
      */
     public function getFormSortieModify(Request $request, $id): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
+
         //Permet l'initialisation du formulaire
         $sortie = new Sortie();
         $prodForm = $this->createForm(SortieType::class, $sortie);
@@ -271,6 +291,10 @@ class SortieController extends AbstractController
      */
     public function inscriptionSortie($id, $idParticipant): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
+
         //Récupération de l'entityManager et des Repo nécessaires au bon fonctionnement de la méthode
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
@@ -303,6 +327,9 @@ class SortieController extends AbstractController
      */
     public function desisterSortie($id, $idParticipant): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute("app_login");
+        }
         //Récupération de l'entityManager et des Repo nécessaires au bon fonctionnement de la méthode
         $em = $this->getDoctrine()->getManager();
         $sortieRepo = $em->getRepository(Sortie::class);
@@ -329,4 +356,10 @@ class SortieController extends AbstractController
         $this->addFlash("message_fail", sprintf("Problème dans l'inscription"));
         return $this->redirectToRoute('app_sortie');
     }
+
+
+
+
+
+
 }
