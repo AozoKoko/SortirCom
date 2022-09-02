@@ -168,23 +168,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete-sortie/{id}", name="app_delete_sortie")
-     */
-    public function deleteSortie($id): Response
-    {
-
-        //ajouter une sécurité : il faut que ce soit uniquement le créateur qui puisse supprimer la sortie
-        $em = $this->getDoctrine()->getManager();
-
-        $sortie = $em->getRepository(Sortie::class)->find($id);
-        dump($sortie);
-        $em->remove($sortie);
-        $em->flush();
-
-        return $this->redirectToRoute('app_sortie');
-    }
-
 
     /**
      * @Route("/new-sortie/", name="app_sortie_form")
